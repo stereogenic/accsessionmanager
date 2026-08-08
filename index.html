@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/fav.ico">
+  <title>ACC - Session Manager v1.0 Manual</title>
+  <style>
+    :root { --bg: #121212; --card: #121212; --text: #e0e0e0; --accent: #e53935; --accent-hover: #ff5252; --border: #333; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 30px 20px; background: var(--bg); color: var(--text); line-height: 1.6; display: flex; justify-content: center; }
+    .container { width: 100%; max-width: 900px; }
+    
+    a{text-decoration:none; color: #e53935;}
+    a:hover { text-decoration: none; color: #ff5252; }
+    
+    img {margin-top:6px;}
+    
+    
+     hr {
+				    display: block;
+				    height: 1px;
+				    border: 0;
+				    border-top: 1px solid #333;
+				    margin: 1em 0;
+				    padding: 0;
+			}
+			
+		hr.redhr {
+				    display: block;
+				    height: 1px;
+				    border: 0;
+				    border-top: 1px solid #e53935;
+				    margin: 0px 0px 10px 0px;
+				    padding: 0;
+			}
+			
+			.header-bar {
+			    display: flex;
+			    justify-content: space-between;
+			    align-items: flex-end;
+			    width: 100%;
+			}
+
+			.header-left {
+			    display: flex;
+			    align-items: flex-start;
+			}
+
+			.header-right {
+			    display: flex;
+			    justify-content: flex-end;
+			    align-items: flex-end;
+			    margin-right: 20px;
+			    margin-bottom:20px;
+			}
+		
+			.btn-url {
+	    display: inline-block;
+	    background: #d32f2f;
+	    color: white;
+	    border: none;
+	    padding: 6px 12px;
+	    border-radius: 4px;
+	    text-decoration: none;
+	    cursor: pointer;
+			}
+
+			.btn-url:hover {
+			    background: #f44336;
+			    color: white;
+			}
+	
+		.subhead {margin: 10px 0px 10px 20px; padding: 0px 0px 0px 0px; font-size: 14px;}
+		.sublist {margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; font-size: 14px; color: #e0e0e0;}
+		
+		.pageTitle { color: #fff; padding-bottom: 10px; margin-top: 0; font-size: 24px; font-weight:bold; }
+		
+    h1 { color: #fff; border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-top: 0; font-size: 24px; }
+    h2 { color: #accent; margin-top: 0px; font-size: 18px; border-bottom: 1px solid #e53935; padding-bottom: 5px; }
+    h3 { color: #fff; font-size: 15px; margin: 20px 0px 0px 0px; padding:0px 0px 0px 20px;}
+    h4 { color: #fff; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; font-size: 15px;}
+    p, li { font-size: 16px; color: #ccc; }
+    ul { padding-left: 20px; margin: 0px 0px 0px 0px;}
+    
+    .card { background: var(--card); padding: 20px 20px 10px 20px; border-radius: 6px; margin-bottom: 20px; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+    code { background: #2a2a2a; color: #ff5252; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 13.5px; }
+    pre { background: #181818; padding: 15px; border-radius: 5px; border: 1px solid var(--border); overflow-x: auto; color: #a9b7c6; font-family: monospace; }
+    .footer { text-align: center; font-size: 12px; color: #777; margin-top: 20px; border-top: 1px solid var(--accent); padding-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+		
+				<div class="header-bar">
+		    <div class="header-left">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 25 800 150" width="600" height="112.5">
+				  <!-- Background -->
+				  <rect y="25" width="800" height="150" fill="#121212" rx="12"/>
+
+				  <!-- Logo Mark -->
+				  <!-- Speedometer Arc -->
+				  <path d="M 57 140 A 63 63 0 1 1 162 140" fill="none" stroke="#2a2a2a" stroke-width="11" stroke-linecap="round"/>
+				  <path d="M 110 37 A 63 63 0 0 1 162 140" fill="none" stroke="#e53935" stroke-width="11" stroke-linecap="round"/>
+
+				  <!-- Server Chassis 1 -->
+				  <rect x="78" y="84" width="63" height="17" rx="3" fill="#1e1e1e" stroke="#333333" stroke-width="2"/>
+				  <circle cx="90" cy="92" r="3" fill="#e53935"/>
+				  <circle cx="100" cy="92" r="3" fill="#555555"/>
+				  <line x1="115" y1="92" x2="131" y2="92" stroke="#555555" stroke-width="3" stroke-linecap="round"/>
+
+				  <!-- Server Chassis 2 -->
+				  <rect x="78" y="106" width="63" height="17" rx="3" fill="#1e1e1e" stroke="#333333" stroke-width="2"/>
+				  <circle cx="90" cy="114" r="3" fill="#4caf50"/>
+				  <circle cx="100" cy="114" r="3" fill="#555555"/>
+				  <line x1="115" y1="114" x2="131" y2="114" stroke="#555555" stroke-width="3" stroke-linecap="round"/>
+
+				  <!-- Pointer -->
+				  <path d="M 110 52 L 110 78" fill="none" stroke="#ff5252" stroke-width="4" stroke-linecap="round"/>
+				  <polygon points="110,45 104,56 116,56" fill="#ff5252"/>
+
+				  <!-- Divider Line -->
+				  <line x1="210" y1="40" x2="210" y2="160" stroke="#333333" stroke-width="2"/>
+				  <line x1="210" y1="70" x2="210" y2="130" stroke="#e53935" stroke-width="2"/>
+
+				  <!-- Typography -->
+				  <text x="240" y="85" font-family="Segoe UI, Arial, sans-serif" font-weight="900" font-size="42" fill="#ffffff" letter-spacing="4">ACC</text>
+				  <text x="240" y="125" font-family="Segoe UI, Arial, sans-serif" font-weight="700" font-size="28" fill="#e53935" letter-spacing="2">SESSION MANAGER</text>
+				  
+				  <!-- Version Tag -->
+				  <rect x="545" y="102" width="55" height="24" rx="4" fill="#2d1717" stroke="#e53935" stroke-width="1"/>
+				  <text x="553" y="118" font-family="Segoe UI, Arial, sans-serif" font-weight="bold" font-size="12" fill="#ff5252">v1.0</text>
+
+				  <!-- Subtext -->
+				  <text x="241" y="152" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#777777" letter-spacing="1">AUTOMATED SERVER ROTATION &amp; CONTROL</text>
+				</svg>
+				</div>
+
+		    <div class="header-right">
+		     <a href="downloads/ACC-SessionManager.v1.0.zip" class="btn-url" target="_blank">Download</a>
+		    </div>
+			  </div>
+   <!-- <hr class="redhr"> -->
+   
+  
+    <div class="card">
+      <h2>Application Features</h2>
+      <ul>
+        <li>Active Ban List.</li>
+        <li>Live Track Queueing.</li>
+        <li>Automatic Track Rotation.</li>
+      	<li>Easy Session Management.</li>
+        <li>Modern ui and easy to use.</li>
+        <li>Weather Presets for each Session.</li>
+      </ul>
+    </div>
+    
+
+    <div class="card">
+      <h2>Table of Contents</h2>
+      <ul>
+      	<h4>Getting Started</h4>
+      	<li><a href="#quick-start">Quick Start Guide</a></li>
+      	<br><h4>ACC Session Manager v1.0</h4>
+        <li><a href="#acc-server-control">ACC Server Control</a></li>
+        <li><a href="#globalsets---overview">Global Server Settings</a></li>
+        <li><a href="#acc-ban-list">Global Ban List</a></li>
+        <li><a href="#track-rotation-list---overview">Track Rotation - Overview</a></li>  
+        <li><a href="#pitstop--event-rules">Pitstop & Event Rules</a></li>
+        <li><a href="#weather-presets">Weather Presets</a></li>
+        <li><a href="#server-timing">Server Timing</a></li>
+        <li><a href="#session-settings">Session Settings</a></li>
+         <li><a href="#entry-bop">EntryList & BoP</a></li>
+      </ul>
+    </div>
+    
+    
+    <span id="quick-start"></span>
+    <div class="card" >
+      <h2>Quick Start Guide</h2>
+      <h3>Installation</h3>
+      
+      <ul>
+      	<li>1. Avoid Windows OS Folders like documents, pictures etc that could be synced with services such as onedrive.</li>
+      	<li>2. Move the ACC-SessionManager Folder into a suitable location where you want to run it from.</li>
+				<li>- Example: <code>C:/Apps/ACC-SessionManager</code> or <code>D:/ACC-SessionManager etc..</code></li>
+      </ul>
+      
+      <h3>Setup & Configuration</h3>
+      <ul>
+        <li>1. Launch ACC-SessionManager.exe</li>
+        <li>2. Configure the server using the global server settings.</li>
+        <li>3. You can close the gui once the ACC Session Manager is Running</li>
+        <li> - Run ACC-SessionManager again to view the gui.</li>
+        <li>4. Its recommended to add the gui to your browser bookmarks.</li>
+      </ul>
+      
+      
+      <h3>Network Access</h3>
+      <ul>
+        <li>1. ACC Session Manager uses the Kunos Dedicated Server <code>server/accServer.exe</code></li>
+        <li>2. Setup the udp and tcp game ports in the gui.</li>
+        <li>3. Start the Server in the gui and allow accServer.exe both Private and Public.</li>
+        <li>4. Configure your router to allow the incoming game ports you set in the gui.</li>
+      </ul>
+      
+    </div>
+
+    
+    <span id="acc-server-control"></span>
+    <div class="card">
+      <h2>ACC Session Manager</h2>
+      
+      <h3>ACC Server Control</h3>
+      <ul>
+      <li>Start and Stop the Server in Rotation Mode or Normal Operation Mode.</li>
+      <li>The Server Status Indicator will turn Green when the Server is Running.</li>
+		  </ul>
+		  <br>
+		  <ul>
+      <li>Close the Browser to continue running the session manager.</li>
+      <li>You can Start ACC-SessionManager to view the gui.</li>
+      <li>Its recommended to add the gui to your browser bookmarks.</li>
+      <li>You can Shutdown the ACC Session Manager using the Gui.</li>
+		  </ul>
+		  <br>
+		  <img src="images/accscmd1.webp" width="100%">
+		  <img src="images/accscmd1c.webp" width="100%">
+		  <img src="images/accscmd1d.webp" width="100%">
+		  
+		  
+		  <hr> <!-- ------------ -->
+		  <span id="globalsets---overview"></span>
+		  <h3>Global Server Settings - Overview</h3>
+      <ul>
+      <li>Select & Configure the Global Server Settings.</li>
+      <li>Expand Each Section to set the relevant settings.</li>
+      </ul>
+		  <br>
+		  <img src="images/accscmd1a.webp" width="100%">
+		  <span style="margin-left:15px; font-size:14px; margin-bottom:0px;">Global Settings Expanded...</span>
+		  <img src="images/accscmd1b.webp" width="100%">
+		  
+		  <hr> <!-- ------------ -->
+		  <span id="acc-ban-list"></span>
+		  <h3>Global Ban List</h3>
+      <ul>
+      <li>Enable or Disable the Global Ban List.</li>
+      <li>Add Player Name and Steam ID to apply a Permanent Ban.</li>
+      <li>Browse the lastest Result files to find Players.</li>
+    
+      <div class="sublist"><br><code>How To Ban a Player</code></div>
+      <li>Use the /ban Admin Command ingame to Ban the Player from the session.</li>
+      <li>View the Latest Session Results & Add the Player to Banlist.</li>
+      <li>Or Manually Add the Player Name and Steam ID.</li>
+      <li>When the Server Restarts The Player will be Banned.</li>
+		  </ul>
+		  
+		   &nbsp; <code>(Permanent Ban applies until the Player is Removed from the Banlist.)</code>
+			<br>
+		  <img src="images/accscmd0.webp" width="100%">
+		  
+		  <hr> <!-- ------------ -->
+		  <span id="track-rotation-list---overview"></span>
+		  <h3>Track Rotation - Overview</h3>
+      <ul>
+      <li>Select the Track and Car Class for the Session.</li>
+      <li>Expand Each Section to set the relevant settings for each race.</li>
+      <li>Re-Order or Delete Tracks in the Rotation List.</li>
+      <li>Add Tracks to the List with the <code>[+ Add new Track to Rotation]</code> button below.</li>
+      <li>Live Queue - Add New Tracks while the server is Running to add them to the queue.</li>
+      <li>Run Single Track - Start the server in normal operation mode using this track.</li>
+		  </ul>
+		  <br>
+		  <img src="images/accscmd2.webp" width="100%">
+		  
+		  <hr> <!-- ------------ -->
+		  <span style="margin-left:15px; font-size:14px; margin-bottom:0px;">Session Settings Expanded...</span>
+		  <span  id="pitstop--event-rules"></span>
+		  <h3>Pitstop & Event Rules</h3>
+      <ul>
+      <li>Configure the Required Pitstop Settings for the Session.</li>
+		  </ul>
+		  <img src="images/accscmd4.webp" width="100%">
+		  
+		  <hr> <!-- ------------ -->
+		  <span  id="weather-presets"></span>
+		  <h3>Weather Presets</h3>
+      <ul>
+      <li>Select a Weather Preset for the Session.</li>
+      <li>Or Use the Inputs to Set Custom Weather (0.00 - 0.1)</li>
+		  </ul>
+		  <img src="images/accscmd5.webp" width="100%">
+		  
+		  <hr> <!-- ------------ -->
+		  <span  id="server-timing"></span>
+		  <h3>Server Timing</h3>
+      <ul>
+      <li>Pre-Race Time (Grid Time) should be atleast 1:20 secs.</li>
+      <li>Nordschleife will Require a High Overtime of 540 secs.</li>
+      <li>150 secs Overtime is default to Cover Spa Francorchamps.</li>
+      <li>Keep Post Qualy and Post Race a low value (under 10 secs).</li>
+		  </ul>
+		  <img src="images/accscmd6.webp" width="100%">
+		  
+		  <hr> <!-- ------------ -->
+		  <span  id="session-settings"></span>
+		  <h3>Session Settings</h3>
+      <ul>
+      <li>Define your Session Type, Weekend Day, Hour of Day, Duration & Time Muliplier.</li>
+      <li>Use the + Add Session and Remove Buttons to add or remove Sessions.</li>
+      <li>Save Rotation to commit the Session to the Queue.</li>
+		  </ul>
+		  <img src="images/accscmd7.webp" width="100%">
+			  
+      
+    	</div>
+    	
+    	<span id="entry-bop"></span>
+	    <div class="card">
+	      <h2>Entry List & Balance of Performance</h2>
+	      <ul>
+	        <li>Copy your entrylist.json to the server/cfg folder.</li>
+	        <li>Copy your bop.json to the server/cfg folder.</li>
+	        <li>Replace files if asked.</li>
+	      </ul>
+	    </div>
+
+    <div class="footer">
+      ACC Session Manager v1.0 &copy; 2026<br>Developed by Andrew Mcdonald aka NewbFixer
+    </div>
+  </div>
+</body>
+</html>
