@@ -1,0 +1,13 @@
+{
+  "timers": {
+    "safetyBufferSeconds": 30,
+    "fallbackDurationMinutes": 100
+  },
+  "supabase": {
+    "url": "https://project.supabase.co",
+    "key": "sb_secret_key123"
+  },
+  "resultsDirectory": "../server/results",
+  "serverExePath": "../server/accServer.exe",
+  "cfgPath": "../server/cfg"
+}

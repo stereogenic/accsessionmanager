@@ -1,0 +1,14 @@
+{
+  "qualifyStandingType": 1,
+  "pitWindowLengthSec": -1,
+  "driverStintTimeSec": -1,
+  "mandatoryPitstopCount": 0,
+  "maxTotalDrivingTime": -1,
+  "maxDriversCount": 1,
+  "tyreSetCount": 50,
+  "isRefuellingAllowedInRace": true,
+  "isRefuellingTimeFixed": false,
+  "isMandatoryPitstopRefuellingRequired": false,
+  "isMandatoryPitstopTyreChangeRequired": false,
+  "isMandatoryPitstopSwapDriverRequired": false
+}

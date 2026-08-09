@@ -1,0 +1,127 @@
+{
+  "serverName": "Server Name | Powered by ACC Session Manager | Track Rotation | Banlist | BOP",
+  "password": "",
+  "adminPassword": "admin",
+  "spectatorPassword": "spectator",
+  "trackMedalsRequirement": 3,
+  "safetyRatingRequirement": 60,
+  "racecraftRatingRequirement": -1,
+  "maxCarSlots": 30,
+  "isRaceLocked": 0,
+  "shortFormationLap": 0,
+  "dumpLeaderboards": 1,
+  "dumpEntryList": 0,
+  "randomizeTrackWhenEmpty": 0,
+  "allowAutoDQ": 1,
+  "ignorePrematureDisconnects": 0,
+  "formationLapType": 3,
+  "udpPort": 9231,
+  "tcpPort": 9232,
+  "maxConnections": 32,
+  "lanDiscovery": 1,
+  "registerToLobby": 0,
+  "rotation": [
+    {
+      "track": "monza",
+      "carGroup": "GT2",
+      "mandatoryPitstopCount": 0,
+      "isRefuellingAllowedInRace": true,
+      "isRefuellingTimeFixed": false,
+      "isMandatoryPitstopRefuellingRequired": false,
+      "isMandatoryPitstopTyreChangeRequired": false,
+      "isMandatoryPitstopSwapDriverRequired": false,
+      "ambientTemp": 16,
+      "cloudLevel": 0.27,
+      "rain": 0.15,
+      "weatherRandomness": 1,
+      "preRaceWaitingTimeSeconds": 80,
+      "sessionOverTimeSeconds": 150,
+      "postQualySeconds": 5,
+      "postRaceSeconds": 5,
+      "sessions": [
+        {
+          "hourOfDay": 14,
+          "dayOfWeekend": 1,
+          "timeMultiplier": 1,
+          "sessionType": "Q",
+          "sessionDurationMinutes": 12
+        },
+        {
+          "hourOfDay": 14,
+          "dayOfWeekend": 3,
+          "timeMultiplier": 1,
+          "sessionType": "R",
+          "sessionDurationMinutes": 20
+        }
+      ]
+    },
+    {
+      "track": "silverstone",
+      "carGroup": "FreeForAll",
+      "mandatoryPitstopCount": 0,
+      "isRefuellingAllowedInRace": true,
+      "isRefuellingTimeFixed": false,
+      "isMandatoryPitstopRefuellingRequired": false,
+      "isMandatoryPitstopTyreChangeRequired": false,
+      "isMandatoryPitstopSwapDriverRequired": false,
+      "ambientTemp": 16,
+      "cloudLevel": 0.27,
+      "rain": 0.15,
+      "weatherRandomness": 1,
+      "preRaceWaitingTimeSeconds": 80,
+      "sessionOverTimeSeconds": 150,
+      "postQualySeconds": 5,
+      "postRaceSeconds": 5,
+      "sessions": [
+        {
+          "hourOfDay": 14,
+          "dayOfWeekend": 2,
+          "timeMultiplier": 1,
+          "sessionType": "Q",
+          "sessionDurationMinutes": 12
+        },
+        {
+          "hourOfDay": 14,
+          "dayOfWeekend": 3,
+          "timeMultiplier": 1,
+          "sessionType": "R",
+          "sessionDurationMinutes": 20
+        }
+      ]
+    },
+    {
+      "track": "mount_panorama",
+      "carGroup": "FreeForAll",
+      "mandatoryPitstopCount": 0,
+      "isRefuellingAllowedInRace": true,
+      "isRefuellingTimeFixed": false,
+      "isMandatoryPitstopRefuellingRequired": false,
+      "isMandatoryPitstopTyreChangeRequired": false,
+      "isMandatoryPitstopSwapDriverRequired": false,
+      "ambientTemp": 16,
+      "cloudLevel": 0.27,
+      "rain": 0.15,
+      "weatherRandomness": 1,
+      "preRaceWaitingTimeSeconds": 80,
+      "sessionOverTimeSeconds": 150,
+      "postQualySeconds": 5,
+      "postRaceSeconds": 5,
+      "sessions": [
+        {
+          "hourOfDay": 14,
+          "dayOfWeekend": 2,
+          "timeMultiplier": 1,
+          "sessionType": "Q",
+          "sessionDurationMinutes": 12
+        },
+        {
+          "hourOfDay": 14,
+          "dayOfWeekend": 3,
+          "timeMultiplier": 1,
+          "sessionType": "R",
+          "sessionDurationMinutes": 20
+        }
+      ]
+    }
+  ]
+}
