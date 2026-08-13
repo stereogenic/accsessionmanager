@@ -72,7 +72,7 @@
         "@type": "TechArticle",
         "@id": "https://www.accsessionmanager.co.uk/#manual",
         "url": "https://www.accsessionmanager.co.uk/",
-        "headline": "ACC Session Manager v1.0 - User Manual",
+        "headline": "ACC Session Manager v1.01 - User Manual",
         "description": "User manual and setup guide for ACC Session Manager, a Windows application for managing Assetto Corsa Competizione dedicated servers.",
         "author": {
           "@type": "Person",
@@ -165,6 +165,7 @@
     h2 { color: #accent; margin-top: 0px; font-size: 18px; border-bottom: 1px solid #e53935; padding-bottom: 5px; }
     h3 { color: #fff; font-size: 15px; margin: 20px 0px 0px 0px; padding:0px 0px 0px 20px;}
     h4 { color: #fff; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; font-size: 15px;}
+    h5 { color: #fff; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; font-size: 14px;}
     p, li { font-size: 16px; color: #ccc; }
     ul { padding-left: 20px; margin: 0px 0px 0px 0px;}
     
@@ -229,7 +230,7 @@
 				  
 				  <!-- Version Tag -->
 				  <rect x="545" y="102" width="55" height="24" rx="4" fill="#2d1717" stroke="#e53935" stroke-width="1"/>
-				  <text x="553" y="118" font-family="Segoe UI, Arial, sans-serif" font-weight="bold" font-size="12" fill="#ff5252">v1.0</text>
+				  <text x="553" y="118" font-family="Segoe UI, Arial, sans-serif" font-weight="bold" font-size="12" fill="#ff5252">v1.01</text>
 
 				  <!-- Subtext -->
 				  <text x="241" y="152" font-family="Segoe UI, Arial, sans-serif" font-size="12" fill="#777777" letter-spacing="1">AUTOMATED SERVER ROTATION &amp; CONTROL</text>
@@ -237,29 +238,40 @@
 				</div>
 
 		    <div class="header-right">
-		     <a href="downloads/ACC-SessionManager.v1.0.rar" class="btn-url" target="_blank">Download</a>
+		     <a href="downloads/ACC-SessionManager.v1.01.rar" class="btn-url" target="_blank">Download v1.01</a>
 		    </div>
 			  </div>
    <!-- <hr class="redhr"> -->
    
        <div class="card">
-      <h2>HOT Fixes & Updates</h2>
+      <h2>NEW RELEASE! Version 1.01</h2>
       <ul>
-      	<h4>Multiple Server Instances - HOTFIX Update 101</h4>
-      	<li><a href="downloads/Hotfix-101-allowserverinstances.zip">Download Hot Fix 101</a> - Allow multiple accserver instances on the same system.<br>Issue: ACCSM was killing all accserver.exe instances on server start.</li>
+      	<h4>Updates & Changelog</h4>
+      	<li>Hotfix 101 included.</li>
+      	<li>uPnP Support - Easier to host than ever!</li>
+      	<li>Bop Import & Management.</li>
+      	<li>Entry List Import & Management.</li>
+      	<li>Backup & Restore Session Settings and Configs.</li>
+      	<li><a href="downloads/ACC-SessionManager.v1.01.rar">Download ACC Session Manager v1.01</a></li>
       	<br>
+      	<h5>Note About uPnP</h5>
+      	<li>If hosting and playing on the same machine...</li>
+      	<li>The Host player must use "LAN Servers" in game to connect.</li>
       </ul>
     </div>
+    
   
-    <div class="card">
+        <div class="card">
       <h2>Application Features</h2>
       <ul>
+      	<li>uPnP Support.</li>
         <li>Active Ban List.</li>
         <li>Live Track Queueing.</li>
         <li>Automatic Track Rotation.</li>
       	<li>Easy Session Management.</li>
         <li>Modern ui and easy to use.</li>
         <li>Weather Presets for each Session.</li>
+        <li>Easy BoP & EntryList Management.</li>
       </ul>
     </div>
     
@@ -269,16 +281,22 @@
       <ul>
       	<h4>Getting Started</h4>
       	<li><a href="#quick-start">Quick Start Guide</a></li>
-      	<br><h4>ACC Session Manager v1.0</h4>
+      	<br>
+      	<h4>ACC Session Manager v1.01</h4>
         <li><a href="#acc-server-control">ACC Server Control</a></li>
-        <li><a href="#globalsets---overview">Global Server Settings</a></li>
-        <li><a href="#acc-ban-list">Global Ban List</a></li>
+        <br>
+        <li><a href="#globalsets---overview">Global Settings Overview</a></li>
+        <li><a href="#global-server-settings">- Global Server Settings</a></li>
+        <li><a href="#acc-bop-list">- Global BoP</a></li>
+        <li><a href="#acc-entry-list">- Global Entry List</a></li>
+        <li><a href="#acc-ban-list">- Global Ban List</a></li>
+        <li><a href="#acc-backup-list">- Backup & Restore</a></li>
+        <br>
         <li><a href="#track-rotation-list---overview">Track Rotation - Overview</a></li>  
-        <li><a href="#pitstop--event-rules">Pitstop & Event Rules</a></li>
-        <li><a href="#weather-presets">Weather Presets</a></li>
-        <li><a href="#server-timing">Server Timing</a></li>
-        <li><a href="#session-settings">Session Settings</a></li>
-        <li><a href="#entry-bop">EntryList & BoP</a></li>
+        <li><a href="#pitstop--event-rules">- Pitstop & Event Rules</a></li>
+        <li><a href="#weather-presets">- Weather Presets</a></li>
+        <li><a href="#server-timing">- Server Timing</a></li>
+        <li><a href="#session-settings">- Session Settings</a></li>
       </ul>
     </div>
     
@@ -304,12 +322,13 @@
       </ul>
       
       
-      <h3>Network Access</h3>
+      <h3>Network Access - uPnP Support</h3>
       <ul>
         <li>1. ACC Session Manager uses the Kunos Dedicated Server <code>server/accServer.exe</code></li>
-        <li>2. Setup the udp and tcp game ports in the gui.</li>
+        <li>2. Setup the udp and tcp game ports in the gui or leave default.</li>
         <li>3. Start the Server in the gui and allow accServer.exe both Private and Public.</li>
-        <li>4. Configure your router to allow the incoming game ports you set in the gui.</li>
+        <li>4. Start the game. uPnP is Normally enabled, if your game isnt showing online...</li>
+        <li>5. Configure your network router to allow the incoming game ports you set in the gui.</li>
       </ul>
       
     </div>
@@ -339,16 +358,53 @@
 		  
 		  <hr> <!-- ------------ -->
 		  <span id="globalsets---overview"></span>
-		  <h3>Global Server Settings - Overview</h3>
+		  <h3>Global Settings - Overview</h3>
       <ul>
-      <li>Select & Configure the Global Server Settings.</li>
+      <li>Select & Configure.</li>
       <li>Expand Each Section to set the relevant settings.</li>
       </ul>
-		  <br>
 		  <img src="images/accscmd1a.webp" width="100%" loading="lazy" alt="ACC Session Manager global server settings">
-		  <span style="margin-left:15px; font-size:14px; margin-bottom:0px;">Global Settings Expanded...</span>
+		  
+		  
+		  
+		  <hr> <!-- ------------ -->
+		  <span id="global-server-settings"></span>
+      <h3>Global Server Settings</h3>
 		  <img src="images/accscmd1b.webp" width="100%" loading="lazy" alt="ACC Session Manager expanded global settings">
 		  
+		  
+
+		  
+		  
+		  <!-- -------------------------------------- -->
+		  <hr>
+		  <span id="acc-bop-list"></span>
+		  <h3>Global BOP</h3>
+      <ul>
+      <li>Import your bop.json using the import button.</li>
+      <li>You can add, edit or remove entries using the editor provided.</li>
+		  </ul>
+		  
+		  <img src="images/accsm-bop1.webp" width="100%" loading="lazy" alt="ACC Session Manager bop listings">
+		  <span style="margin-left:15px; font-size:12px; margin-bottom:0px;">BOP Editor...</span>
+		  <img src="images/accsm-bop2.webp" width="100%" loading="lazy" alt="ACC Session Manager bop editor">
+		  <!-- -------------------------------------- -->
+		  
+		  <!-- -------------------------------------- -->
+		  <hr>
+		  <span id="acc-entry-list"></span>
+		  <h3>Global Entry List</h3>
+      <ul>
+      <li>Import your entrylist.json using the import button.</li>
+      <li>You can add, edit or remove entries using the editor provided.</li>
+		  </ul>
+		  
+		  <img src="images/accsm-entrylist1.webp" width="100%" loading="lazy" alt="ACC Session Manager entry list listings">
+		  <span style="margin-left:15px; font-size:12px; margin-bottom:0px;">Entry List Editor...</span>
+		  <img src="images/accsm-entrylist2.webp" width="100%" loading="lazy" alt="ACC Session Manager entry list editor">
+		  <!-- -------------------------------------- -->
+		  
+		  		  <!-- -------------------------------------- -->
 		  <hr> <!-- ------------ -->
 		  <span id="acc-ban-list"></span>
 		  <h3>Global Ban List</h3>
@@ -367,6 +423,21 @@
 		   &nbsp; <code>(Permanent Ban applies until the Player is Removed from the Banlist.)</code>
 			<br>
 		  <img src="images/accscmd0.webp" width="100%" loading="lazy" alt="ACC Session Manager global ban list">
+		  <!-- -------------------------------------- -->
+		  
+		  <!-- -------------------------------------- -->
+		  <hr>
+		  <span id="acc-backup-list"></span>
+		  <h3>Backup & Restore</h3>
+      <ul>
+      <li>Export or Import backups of the session mananger configuration settings.</li>
+		  </ul>
+		  <br>
+		  <img src="images/accsm-backup.webp" width="100%" loading="lazy" alt="ACC Session Manager back up and restore">
+		  <!-- -------------------------------------- -->
+		  
+		  
+		  
 		  
 		  <hr> <!-- ------------ -->
 		  <span id="track-rotation-list---overview"></span>
@@ -424,21 +495,12 @@
       
     	</div>
     	
-    	<span id="entry-bop"></span>
-	    <div class="card">
-	      <h2>Entry List & Balance of Performance</h2>
-	      <ul>
-	        <li>Copy your entrylist.json to the server/cfg folder.</li>
-	        <li>Copy your bop.json to the server/cfg folder.</li>
-	        <li>Replace files if asked.</li>
-	      </ul>
-	    </div>
+  
 
     </main>
 
-    <footer class="footer">
-      ACC Session Manager v1.0 &copy; 2026<br>Developed by Andrew Mcdonald aka NewbFixer
-    </footer>
+    <div class="footer">ACC Session Manager &copy; 2026<br>Developed by Andrew Mcdonald aka NewbFixer<br><a href="https://www.accsessionmanager.co.uk/" target="_blank">www.accsessionmanager.co.uk</a></div>
+        </div>
   </div>
 </body>
 </html>
