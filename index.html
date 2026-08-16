@@ -445,11 +445,11 @@ header {
     <text x="240" y="85" font-family="Segoe UI, sans-serif" font-weight="900" font-size="42" fill="#ffffff" letter-spacing="4">ACC</text>
     <text x="240" y="125" font-family="Segoe UI, sans-serif" font-weight="700" font-size="28" fill="#e53935" letter-spacing="2">SESSION MANAGER</text>
     <rect x="545" y="102" width="55" height="24" rx="4" fill="#2d1717" stroke="#e53935" stroke-width="1"/>
-    <text x="553" y="118" font-family="Segoe UI, sans-serif" font-weight="bold" font-size="12" fill="#ff5252">v1.01</text>
+    <text x="553" y="118" font-family="Segoe UI, sans-serif" font-weight="bold" font-size="12" fill="#ff5252">v1.02</text>
   </svg>
 </div>
       <div class="nav-links">
-        <a href="downloads/ACC-SessionManager.v1.01.rar" class="btn-primary">Download v1.01</a>
+        <a href="downloads/ACC-SessionManager.v1.02.rar" class="btn-primary">Download v1.02</a>
       </div>
     </div>
   </header>
@@ -457,26 +457,20 @@ header {
   <main class="container">
     <!-- Hero Section -->
     <section class="hero">
-      <span class="badge">Version 1.01 Released</span>
+      <span class="badge">Version 1.02 Released</span>
       <h1>Automate Your Assetto Corsa Competizione Dedicated Server</h1>
       <p>
         Effortlessly manage live server rotation, weather presets, global ban lists,<br>import BoP & Entry List files and edit with the visual editor.
       </p>
       <div class="hero-cta">
-        <a href="downloads/ACC-SessionManager.v1.01.rar" class="btn-primary">⚡ Download ACC Session Manager v1.01</a>
-        <a href="#quick-start" class="btn-secondary">📖 View Setup Guide</a>
+        <a href="downloads/ACC-SessionManager.v1.02.rar" class="btn-primary">⚡ Download ACC Session Manager v1.02</a>
+        <a href="#quick-start" class="btn-secondary">📖 Quick Start Guide</a>
       </div>
     </section>
 
     <!-- Key Feature Grid -->
     <section id="features" class="features-grid">
-    	<!--
-      <div class="feature-card">
-        <div class="feature-icon">🌐</div>
-        <h3>uPnP Auto-Hosting</h3>
-        <p>No tedious port forwarding required! Automatically routes UDP & TCP game ports for instant server visibility.</p>
-      </div>
-      -->
+
       <div class="feature-card">
         <div class="feature-icon">🔄</div>
         <h3>Track Rotation & Live Queue</h3>
@@ -537,29 +531,27 @@ header {
           <h3>1. Installation</h3>
           <ul>
             <li>Avoid Windows OS system folders (e.g., Documents or OneDrive sync paths).</li>
-            <li>Unpack and place the <code>ACC-SessionManager</code> folder into your desired directory (e.g., <code>C:\Apps\ACC-SessionManager</code> or <code>D:\ACC-SessionManager</code>).</li>
+            <li>Unpack and place the <code>ACC-SessionManager</code> folder into your desired directory<br>(e.g., <code>C:\Apps\ACC-SessionManager</code> or <code>D:\ACC-SessionManager</code>).</li>
           </ul>
 
           <h3>2. Setup & Configuration</h3>
           <ul>
-            <li>Launch <code>ACC-SessionManager.exe</code>.</li>
-            <li>Configure server parameters using the global settings panel.</li>
-            <li>Once running, you can close the GUI window—the manager will run smoothly in the background.</li>
-            <li>Re-launch <code>ACC-SessionManager.exe</code> anytime or bookmark the web interface in your browser.</li>
+            <li>1. Launch ACC-SessionManager</li>
+		        <li>2. Configure the server using the global server settings.</li>
+		        <li>3. You can close the gui when ACC Session Manager is Running.</li>
+		        <li> - Access the gui via the System Tray or Start the App.</li>
+		        <li> - Its recommended to add the gui to your browser bookmarks.</li>
           </ul>
 					<span id="upnp-notes"></span>
-          <h3>3. Network Access (uPnP Supported)</h3>
-          <ul>
-            <li>ACC Session Manager uses Kunos Dedicated Server binaries (<code>server/accServer.exe</code>).</li>
-            <li>Configure your preferred UDP/TCP game ports inside the GUI (or retain defaults).</li>
-            <li>Allow <code>accServer.exe</code> through Windows Firewall (Public & Private networks).</li>
-            <li>If uPnP is disabled in your router...</li>
-            <li>Configure your firewall to allow the game ports you set in the global server settings.</li>
-          </ul>
+          <h3>3. Network Access</h3>
+		      <ul>
+		        <li>1. Setup the udp and tcp game ports in the gui or leave the game default.</li>
+		        <li>2. Start the Server in the gui and allow accServer.exe both Private and Public.</li>
+		        <li>3. Configure your network router to allow the incoming game ports or...</li>
+		        <li>4. You can enable uPnp in the Global Server Settings.</li>
+		      </ul>
 
-          <div class="alert-box">
-            <strong>Note for uPnP Users:</strong><br>If you are hosting and playing on the same machine,<br>The Host Player must connect via the <strong>"LAN Servers"</strong> tab in Assetto Corsa Competizione.
-          </div>
+        
         </section>
 
         <!-- Server Control -->
@@ -601,7 +593,19 @@ header {
         <!-- Ban List -->
         <section id="acc-ban-list" class="card">
           <h2>🛡️ Global Ban Management</h2>
-          <p>Browse past match result logs to ban troublesome drivers with one click, or enter Steam IDs manually for permanent session bans.</p>
+          
+     
+      <ul>
+      <li>Enable or Disable the Global Ban List.</li>
+      <li>Add Player Name and Steam ID to apply a Permanent Ban.</li>
+      <li>Browse the lastest Result files to find Player Names.</li>
+    
+      <div class="sublist"><br><code>How To Ban a Player</code></div>
+      <li>Use the /ban Admin Command ingame to Ban the Player from the session.</li>
+      <li>View the Latest Session Results & Add the Player to Banlist.</li>
+      <li>Or Manually Add the Player Name and Steam ID.</li>
+      <li>When the Server Restarts The Player will be Banned.</li>
+		  </ul>
 
           <img src="images/accscmd0.webp" class="img-preview" loading="lazy" alt="Global Ban List Management">
         </section>
@@ -620,20 +624,37 @@ header {
         <span id="track-rotation-list"></span>
         <section  class="card">
           <h2>📅 Track Rotation & Session Fine-Tuning</h2>
-          <p>Re-order track queues on the fly, adjust race durations, weather variance, pitstop rules, and overtime duration.</p>
+          <p>Re-order track queues on the fly, Adjust Race Rules, Weather Variance and more.</p>
+          
+          <hr class="redhr">
 
           <h3 id="pitstop-rules">Pitstop & Event Rules</h3>
           <img src="images/accscmd4.webp" class="img-preview" loading="lazy" alt="Pitstop and Event Rules Settings">
+          
+          <hr class="redhr">
 
-          <h3 id="weather-presets">Weather Presets</h3>
+          <h3 id="weather-presets">Weather Settings</h3>
+		      <ul>
+		      <li>Select a Custom or Default Preset.</li>
+		      <li>Or Use the Inputs to Set Custom Weather.</li>
+		   		</ul>
+	
+		      <ul>
+		      <li style="font-weight:bold; color:#ffffff;">Custom Presets</li>
+		      <li>Use the Inputs to Set Your Weather.</li>
+		      <li>Press "Save Preset" and give it a name.</li>
+				  </ul>
           <img src="images/accscmd5.webp" class="img-preview" loading="lazy" alt="Weather Preset Selector">
 
-          <h3 id="server-timing">Server Timing & Overtime Controls</h3>
-          <div class="alert-box warning">
-            <strong>Timing Tip:</strong> Set Pre-Race Grid time to at least 80 seconds. Nordschleife sessions require at least 540s of overtime!
-          </div>
+					<hr class="redhr">
+					
+          <h3 id="server-timing">Server Timing</h3>
           <img src="images/accscmd6.webp" class="img-preview" loading="lazy" alt="Server Timing Settings">
-          <img src="images/accscmd7.webp" class="img-preview" loading="lazy" alt="Session Schedule and Multipliers">
+          
+          <hr class="redhr">
+          
+          <h3 id="server-timing">Session Settings</h3>
+          <img src="images/accscmd7.webp" class="img-preview" loading="lazy" alt="Session Settings">
         </section>
 
       </div>
