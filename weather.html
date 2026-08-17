@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACC Session Manager — 72-Hour Weekend Weather Simulator</title>
+    <style>
+        :root {
+            --bg-black: #000000;
+            --bg-panel: #0a0a0a;
+            --bg-input: #121212;
+            --border-neutral: #262626;
+            --border-hover: #e53935;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent-red: #e53935;
+            --accent-red-hover: #ff5252;
+            --accent-cyan: #22d3ee;
+            --accent-emerald: #34d399;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-main);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            border-top: 4px solid var(--accent-red);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Header Styles */
+        header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(229, 57, 53, 0.2);
+            padding-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        @media (min-width: 768px) {
+            header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .header-info {
+            text-align: right;
+        }
+
+        .header-info .badge {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-red);
+            font-weight: 700;
+            display: block;
+        }
+
+        .header-info .sub {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .grid {
+                grid-template-columns: 340px 1fr;
+            }
+        }
+
+        /* Panel Cards */
+        .card {
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-neutral);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .panel-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--border-neutral);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pulse-dot {
+            width: 0.6rem;
+            height: 0.6rem;
+            border-radius: 50%;
+            background-color: var(--accent-red);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(229, 57, 53, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(229, 57, 53, 0); }
+        }
+
+        /* Presets */
+        .section-label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .preset-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .preset-btn {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-neutral);
+            border-radius: 0.375rem;
+            padding: 0.50rem 0.75rem;
+            text-align: left;
+            color: var(--text-main);
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preset-btn:hover {
+            border-color: var(--accent-red);
+            background-color: #1a0808;
+        }
+
+        .preset-btn span:first-child {
+            transition: color 0.2s ease;
+        }
+
+        .preset-btn:hover span:first-child {
+            color: var(--accent-red-hover);
+        }
+
+        .preset-btn span:last-child {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        /* Form Controls */
+        .control-group {
+            margin-bottom: 1rem;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #cbd5e1;
+            margin-bottom: 0.35rem;
+        }
+
+        .control-group label span {
+            font-weight: 700;
+            color: var(--accent-red);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--accent-red);
+            cursor: pointer;
+            background: var(--bg-input);
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border-neutral);
+            margin: 1.25rem 0;
+        }
+
+        /* Schedule Sections */
+        .schedule-box {
+            margin-bottom: 1rem;
+        }
+
+        .schedule-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.35rem;
+        }
+
+        .schedule-title.cyan { color: var(--accent-cyan); }
+        .schedule-title.emerald { color: var(--accent-emerald); }
+        .schedule-title.red { color: var(--accent-red); }
+
+        .schedule-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .input-wrapper span {
+            display: block;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-bottom: 0.2rem;
+        }
+
+        .schedule-inputs input {
+            width: 100%;
+            background-color: var(--bg-black);
+            border: 1px solid var(--border-neutral);
+            border-radius: 0.375rem;
+            padding: 0.4rem;
+            font-size: 0.85rem;
+            text-align: center;
+            font-weight: 750;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .schedule-inputs input.cyan { color: var(--accent-cyan); }
+        .schedule-inputs input.emerald { color: var(--accent-emerald); }
+        .schedule-inputs input.red { color: var(--accent-red); }
+
+        .schedule-inputs input:focus {
+            border-color: var(--accent-red);
+        }
+
+        /* Action Button */
+        .btn-simulate {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--accent-red);
+            color: #ffffff;
+            font-weight: 700;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 14px rgba(229, 57, 53, 0.4);
+            font-size: 0.9rem;
+        }
+
+        .btn-simulate:hover {
+            background-color: var(--accent-red-hover);
+        }
+
+        /* Right Column */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .chart-container {
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-neutral);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            height: 420px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-neutral);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 1.35rem;
+            font-weight: 900;
+            margin-top: 0.25rem;
+        }
+
+        .stat-value.cyan { color: var(--accent-cyan); }
+        .stat-value.slate { color: #e2e8f0; }
+        .stat-value.red { color: var(--accent-red); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header with Official Logo -->
+        <header>
+            <div>
+                <!-- Embedded SVG Logo -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 25 800 150" height="80" width="auto" style="height: 80px; width: auto;">
+                    <rect y="25" width="800" height="150" fill="#0f1117" rx="12"/>
+                    <path d="M 57 140 A 63 63 0 1 1 162 140" fill="none" stroke="#2a2a2a" stroke-width="11" stroke-linecap="round"/>
+                    <path d="M 110 37 A 63 63 0 0 1 162 140" fill="none" stroke="#e53935" stroke-width="11" stroke-linecap="round"/>
+                    <rect x="78" y="84" width="63" height="17" rx="3" fill="#1e1e1e" stroke="#333333" stroke-width="2"/>
+                    <circle cx="90" cy="92" r="3" fill="#e53935"/>
+                    <circle cx="100" cy="92" r="3" fill="#555555"/>
+                    <line x1="115" y1="92" x2="131" y2="92" stroke="#555555" stroke-width="3" stroke-linecap="round"/>
+                    <rect x="78" y="106" width="63" height="17" rx="3" fill="#1e1e1e" stroke="#333333" stroke-width="2"/>
+                    <circle cx="90" cy="114" r="3" fill="#4caf50"/>
+                    <circle cx="100" cy="114" r="3" fill="#555555"/>
+                    <line x1="115" y1="114" x2="131" y2="114" stroke="#555555" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M 110 52 L 110 78" fill="none" stroke="#ff5252" stroke-width="4" stroke-linecap="round"/>
+                    <polygon points="110,45 104,56 116,56" fill="#ff5252"/>
+                    <line x1="210" y1="40" x2="210" y2="160" stroke="#333333" stroke-width="2"/>
+                    <line x1="210" y1="70" x2="210" y2="130" stroke="#e53935" stroke-width="2"/>
+                    <text x="240" y="85" font-family="Segoe UI, sans-serif" font-weight="900" font-size="42" fill="#ffffff" letter-spacing="4">ACC</text>
+                    <text x="240" y="125" font-family="Segoe UI, sans-serif" font-weight="700" font-size="28" fill="#e53935" letter-spacing="2">SESSION MANAGER</text>
+                    <rect x="545" y="102" width="55" height="24" rx="4" fill="#2d1717" stroke="#e53935" stroke-width="1"/>
+                    <text x="553" y="118" font-family="Segoe UI, sans-serif" font-weight="bold" font-size="12" fill="#ff5252">v1.02</text>
+                </svg>
+            </div>
+            <div class="header-info">
+                <span class="badge">Telemetry &amp; Weather Suite</span>
+                <span class="sub">72-Hour Race Weekend Simulator</span>
+            </div>
+        </header>
+
+        <div class="grid">
+            
+            <!-- Configuration Panel -->
+            <div class="card">
+                <h2 class="panel-title">
+                    <span>Weather Parameters</span>
+                    <span class="pulse-dot"></span>
+                </h2>
+
+                <!-- Quick Presets -->
+                <div>
+                    <span class="section-label">Quick Presets</span>
+                    <div class="preset-grid">
+                        <button type="button" data-preset="sunny" class="preset-btn">
+                            <span>☀️ Sunny Clear</span>
+                            <span>23°C / 0 Rain</span>
+                        </button>
+                        <button type="button" data-preset="overcast" class="preset-btn">
+                            <span>☁️ Overcast</span>
+                            <span>19°C / 0 Rain</span>
+                        </button>
+                        <button type="button" data-preset="light-rain" class="preset-btn">
+                            <span>🌦️ Light Rain</span>
+                            <span>20°C / 0.12 Rain</span>
+                        </button>
+                        <button type="button" data-preset="med-rain" class="preset-btn">
+                            <span>🌧️ Medium Rain</span>
+                            <span>20°C / 0.27 Rain</span>
+                        </button>
+                        <button type="button" data-preset="heavy-rain" class="preset-btn">
+                            <span>⛈️ Heavy Rain</span>
+                            <span>16°C / 0.62 Rain</span>
+                        </button>
+                    </div>
+                </div>
+
+                <hr class="divider">
+
+                <div class="control-group">
+                    <label>Base Rain Level: <span id="val-rain">0.20</span></label>
+                    <input id="input-rain" type="range" min="0" max="1" step="0.01" value="0.2">
+                </div>
+
+                <div class="control-group">
+                    <label>Base Cloud Level: <span id="val-cloud">0.40</span></label>
+                    <input id="input-cloud" type="range" min="0" max="1" step="0.01" value="0.4">
+                </div>
+
+                <div class="control-group">
+                    <label>Weather Volatility: <span id="val-random">3</span></label>
+                    <input id="input-random" type="range" min="0" max="5" step="1" value="3">
+                </div>
+
+                <div class="control-group">
+                    <label>Base Temperature (°C): <span id="val-temp">22</span></label>
+                    <input id="input-temp" type="range" min="10" max="40" step="1" value="22">
+                </div>
+
+                <hr class="divider">
+
+                <!-- Friday Free Practice Schedule -->
+                <div class="schedule-box">
+                    <div class="schedule-title cyan">Friday — Free Practice</div>
+                    <div class="schedule-inputs">
+                        <div class="input-wrapper">
+                            <span>Start Hour (0-23)</span>
+                            <input id="fri-hour" class="cyan" type="number" min="0" max="23" value="15">
+                        </div>
+                        <div class="input-wrapper">
+                            <span>Duration (Mins)</span>
+                            <input id="fri-duration" class="cyan" type="number" min="15" max="360" value="60">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Saturday Qualifying Schedule -->
+                <div class="schedule-box">
+                    <div class="schedule-title emerald">Saturday — Qualifying</div>
+                    <div class="schedule-inputs">
+                        <div class="input-wrapper">
+                            <span>Start Hour (0-23)</span>
+                            <input id="sat-hour" class="emerald" type="number" min="0" max="23" value="12">
+                        </div>
+                        <div class="input-wrapper">
+                            <span>Duration (Mins)</span>
+                            <input id="sat-duration" class="emerald" type="number" min="15" max="360" value="45">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sunday Race Schedule -->
+                <div class="schedule-box">
+                    <div class="schedule-title red">Sunday — Main Race</div>
+                    <div class="schedule-inputs">
+                        <div class="input-wrapper">
+                            <span>Start Hour (0-23)</span>
+                            <input id="sun-hour" class="red" type="number" min="0" max="23" value="14">
+                        </div>
+                        <div class="input-wrapper">
+                            <span>Duration (Mins)</span>
+                            <input id="sun-duration" class="red" type="number" min="15" max="360" value="90">
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="divider">
+
+                <div>
+                    <button id="btn-simulate" class="btn-simulate">
+                        Simulate 72-Hour Weekend
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chart & Timeline Details Panel -->
+            <div class="right-column">
+                
+                <!-- Chart Container -->
+                <div class="chart-container">
+                    <canvas id="weekendChart"></canvas>
+                </div>
+
+                <!-- Weekend Summary Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Peak Weekend Rain</div>
+                        <div id="stat-max-rain" class="stat-value cyan">--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Avg Cloud Cover</div>
+                        <div id="stat-avg-cloud" class="stat-value slate">--</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Temp Range</div>
+                        <div id="stat-temp-range" class="stat-value red">--</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Self-Contained Chart & Simulation Logic -->
+    <script>
+        const rainInput = document.getElementById('input-rain');
+        const cloudInput = document.getElementById('input-cloud');
+        const randomInput = document.getElementById('input-random');
+        const tempInput = document.getElementById('input-temp');
+        
+        const friHourInput = document.getElementById('fri-hour');
+        const friDurationInput = document.getElementById('fri-duration');
+        const satHourInput = document.getElementById('sat-hour');
+        const satDurationInput = document.getElementById('sat-duration');
+        const sunHourInput = document.getElementById('sun-hour');
+        const sunDurationInput = document.getElementById('sun-duration');
+
+        const valRain = document.getElementById('val-rain');
+        const valCloud = document.getElementById('val-cloud');
+        const valRandom = document.getElementById('val-random');
+        const valTemp = document.getElementById('val-temp');
+
+        const btnSimulate = document.getElementById('btn-simulate');
+        const presetButtons = document.querySelectorAll('.preset-btn');
+
+        const statMaxRain = document.getElementById('stat-max-rain');
+        const statAvgCloud = document.getElementById('stat-avg-cloud');
+        const statTempRange = document.getElementById('stat-temp-range');
+
+        const canvas = document.getElementById('weekendChart');
+        const ctx = canvas.getContext('2d');
+
+        const presets = {
+            'sunny': { temp: 23, cloud: 0.25, rain: 0.00, random: 1 },
+            'overcast': { temp: 19, cloud: 0.55, rain: 0.00, random: 1 },
+            'light-rain': { temp: 20, cloud: 0.62, rain: 0.12, random: 1 },
+            'med-rain': { temp: 20, cloud: 0.70, rain: 0.27, random: 1 },
+            'heavy-rain': { temp: 16, cloud: 0.88, rain: 0.62, random: 2 }
+        };
+
+        let currentSimulationData = null;
+        let hoveredIndex = null;
+
+        function updateLabels() {
+            valRain.textContent = parseFloat(rainInput.value).toFixed(2);
+            valCloud.textContent = parseFloat(cloudInput.value).toFixed(2);
+            valRandom.textContent = randomInput.value;
+            valTemp.textContent = tempInput.value;
+        }
+
+        function generateWeekendData() {
+            const baseRain = parseFloat(rainInput.value);
+            const baseCloud = parseFloat(cloudInput.value);
+            const randomness = parseInt(randomInput.value);
+            const baseTemp = parseInt(tempInput.value);
+
+            const friStartHour = parseInt(friHourInput.value) || 15;
+            const friDuration = parseInt(friDurationInput.value) || 60;
+            const satStartHour = parseInt(satHourInput.value) || 12;
+            const satDuration = parseInt(satDurationInput.value) || 45;
+            const sunStartHour = parseInt(sunHourInput.value) || 14;
+            const sunDuration = parseInt(sunDurationInput.value) || 90;
+
+            let labels = [];
+            let tooltipsList = [];
+            let rainData = [];
+            let cloudData = [];
+            let tempData = [];
+
+            let currentRain = baseRain;
+            let currentCloud = baseCloud;
+
+            let maxRainVal = 0;
+            let totalCloudSum = 0;
+            let totalPoints = 0;
+            let minTempVal = 50;
+            let maxTempVal = -50;
+
+            let friStartIdx = 0, friEndIdx = 0;
+            let satStartIdx = 0, satEndIdx = 0;
+            let sunStartIdx = 0, sunEndIdx = 0;
+
+            const days = ['Friday', 'Saturday', 'Sunday'];
+
+            for (let dayIdx = 0; dayIdx < 3; dayIdx++) {
+                const dayName = days[dayIdx];
+                for (let hour = 0; hour < 24; hour++) {
+                    let isSessionHour = false;
+                    if (dayIdx === 0 && hour >= friStartHour && hour <= friStartHour + Math.ceil(friDuration / 60)) isSessionHour = true;
+                    if (dayIdx === 1 && hour >= satStartHour && hour <= satStartHour + Math.ceil(satDuration / 60)) isSessionHour = true;
+                    if (dayIdx === 2 && hour >= sunStartHour && hour <= sunStartHour + Math.ceil(sunDuration / 60)) isSessionHour = true;
+
+                    const stepMinutes = isSessionHour ? 10 : 120;
+
+                    for (let min = 0; min < 60; min += stepMinutes) {
+                        const totalMinFromDayStart = (hour * 60) + min;
+
+                        if (dayIdx === 0) {
+                            if (hour === friStartHour && min === 0) friStartIdx = totalPoints;
+                            if (totalMinFromDayStart >= (friStartHour * 60) + friDuration && friEndIdx === 0) friEndIdx = totalPoints;
+                        } else if (dayIdx === 1) {
+                            if (hour === satStartHour && min === 0) satStartIdx = totalPoints;
+                            if (totalMinFromDayStart >= (satStartHour * 60) + satDuration && satEndIdx === 0) satEndIdx = totalPoints;
+                        } else if (dayIdx === 2) {
+                            if (hour === sunStartHour && min === 0) sunStartIdx = totalPoints;
+                            if (totalMinFromDayStart >= (sunStartHour * 60) + sunDuration && sunEndIdx === 0) sunEndIdx = totalPoints;
+                        }
+
+                        let sessionTag = '';
+                        if (dayIdx === 0 && totalMinFromDayStart >= (friStartHour * 60) && totalMinFromDayStart <= (friStartHour * 60) + friDuration) sessionTag = ' 🏎️ [FREE PRACTICE]';
+                        if (dayIdx === 1 && totalMinFromDayStart >= (satStartHour * 60) && totalMinFromDayStart <= (satStartHour * 60) + satDuration) sessionTag = ' ⏱️ [QUALIFYING]';
+                        if (dayIdx === 2 && totalMinFromDayStart >= (sunStartHour * 60) && totalMinFromDayStart <= (sunStartHour * 60) + sunDuration) sessionTag = ' 🏁 [MAIN RACE]';
+
+                        labels.push(`${dayName.substring(0,3)} ${String(hour).padStart(2, '0')}:${String(min).padStart(2, '0')}`);
+                        tooltipsList.push(`${dayName} at ${String(hour).padStart(2, '0')}:${String(min).padStart(2, '0')}${sessionTag}`);
+
+                        const noiseScale = randomness * 0.005;
+                        currentRain = Math.max(0, Math.min(1, currentRain + (Math.random() - 0.5) * noiseScale));
+                        currentCloud = Math.max(0, Math.min(1, currentCloud + (Math.random() - 0.5) * noiseScale));
+
+                        const sunCycleOffset = Math.sin(((hour + min/60 - 9) / 24) * 2 * Math.PI); 
+                        let targetTemp = baseTemp + (sunCycleOffset * 7) - (currentCloud * 3);
+                        const tempDrift = targetTemp + (Math.random() - 0.5) * (randomness * 0.2);
+
+                        const rRounded = parseFloat(currentRain.toFixed(2));
+                        const cRounded = parseFloat(currentCloud.toFixed(2));
+                        const tRounded = parseFloat(tempDrift.toFixed(1));
+
+                        rainData.push(rRounded);
+                        cloudData.push(cRounded);
+                        tempData.push(tRounded);
+
+                        if (rRounded > maxRainVal) maxRainVal = rRounded;
+                        totalCloudSum += cRounded;
+                        if (tRounded < minTempVal) minTempVal = tRounded;
+                        if (tRounded > maxTempVal) maxTempVal = tRounded;
+                        totalPoints++;
+                    }
+                }
+            }
+
+            if (friEndIdx === 0) friEndIdx = friStartIdx + 3;
+            if (satEndIdx === 0) satEndIdx = satStartIdx + 3;
+            if (sunEndIdx === 0) sunEndIdx = sunStartIdx + 3;
+
+            statMaxRain.textContent = maxRainVal > 0.05 ? `${Math.round(maxRainVal * 100)}% Intensity` : 'Dry';
+            statAvgCloud.textContent = `${Math.round((totalCloudSum / totalPoints) * 100)}%`;
+            statTempRange.textContent = `${minTempVal}°C - ${maxTempVal}°C`;
+
+            const sessionWindows = [
+                { startIdx: friStartIdx, endIdx: friEndIdx, color: 'rgba(6, 182, 212, 0.08)', lineColor: '#22d3ee', label: '🛠️ FP START' },
+                { startIdx: satStartIdx, endIdx: satEndIdx, color: 'rgba(16, 185, 129, 0.08)', lineColor: '#34d399', label: '⏱️ QUALI START' },
+                { startIdx: sunStartIdx, endIdx: sunEndIdx, color: 'rgba(239, 68, 68, 0.12)', lineColor: '#ef4444', label: '🏁 RACE START' }
+            ];
+
+            currentSimulationData = { labels, rainData, cloudData, tempData, tooltipsList, sessionWindows };
+            drawChart();
+        }
+
+        function drawChart() {
+            if (!currentSimulationData) return;
+
+            const width = canvas.clientWidth;
+            const height = canvas.clientHeight;
+            canvas.width = width * window.devicePixelRatio;
+            canvas.height = height * window.devicePixelRatio;
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+            ctx.clearRect(0, 0, width, height);
+
+            const padding = { top: 40, right: 50, bottom: 45, left: 50 };
+            const chartWidth = width - padding.left - padding.right;
+            const chartHeight = height - padding.top - padding.bottom;
+
+            const { labels, rainData, cloudData, tempData, tooltipsList, sessionWindows } = currentSimulationData;
+            const totalPoints = labels.length;
+
+            function getX(i) {
+                return padding.left + (i / (totalPoints - 1)) * chartWidth;
+            }
+
+            function getYRain(val) {
+                return padding.top + chartHeight - (val * chartHeight);
+            }
+
+            function getYTemp(val) {
+                // Temp range: 0 to 50 °C
+                const normalized = Math.max(0, Math.min(1, val / 50));
+                return padding.top + chartHeight - (normalized * chartHeight);
+            }
+
+            // Draw Session Window Backgrounds & Start Lines
+            sessionWindows.forEach(win => {
+                const xStart = getX(win.startIdx);
+                const xEnd = getX(win.endIdx);
+
+                ctx.fillStyle = win.color;
+                ctx.fillRect(xStart, padding.top, xEnd - xStart, chartHeight);
+
+                ctx.strokeStyle = win.lineColor;
+                ctx.lineWidth = 2;
+                ctx.setLineDash([4, 4]);
+                ctx.beginPath();
+                ctx.moveTo(xStart, padding.top);
+                ctx.lineTo(xStart, padding.top + chartHeight);
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                ctx.fillStyle = win.lineColor;
+                ctx.font = 'bold 10px Segoe UI';
+                ctx.fillText(win.label, xStart + 6, padding.top + 15);
+            });
+
+            // Draw Y-Axis Gridlines
+            ctx.strokeStyle = 'rgba(38, 38, 38, 0.6)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 5; i++) {
+                const y = padding.top + (i / 5) * chartHeight;
+                ctx.beginPath();
+                ctx.moveTo(padding.left, y);
+                ctx.lineTo(width - padding.right, y);
+                ctx.stroke();
+
+                // Left Axis Labels (Rain/Cloud 0.0 - 1.0)
+                ctx.fillStyle = '#22d3ee';
+                ctx.font = '10px Segoe UI';
+                ctx.textAlign = 'right';
+                ctx.fillText(((5 - i) / 5).toFixed(1), padding.left - 8, y + 3);
+
+                // Right Axis Labels (Temp 0 - 50 °C)
+                ctx.fillStyle = '#ef4444';
+                ctx.textAlign = 'left';
+                ctx.fillText(`${Math.round((5 - i) / 5 * 50)}°`, width - padding.right + 8, y + 3);
+            }
+
+            // Draw X-Axis Date/Time Labels
+            ctx.fillStyle = '#737373';
+            ctx.font = '10px Segoe UI';
+            ctx.textAlign = 'center';
+            const tickInterval = Math.max(1, Math.floor(totalPoints / 8));
+            for (let i = 0; i < totalPoints; i += tickInterval) {
+                const x = getX(i);
+                ctx.fillText(labels[i], x, height - padding.bottom + 20);
+            }
+
+            // Draw Cloud Cover Line (Dashed Slate)
+            ctx.strokeStyle = '#64748b';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([4, 4]);
+            ctx.beginPath();
+            for (let i = 0; i < totalPoints; i++) {
+                const x = getX(i);
+                const y = getYRain(cloudData[i]);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Draw Rain Intensity Area & Line (Cyan)
+            ctx.fillStyle = 'rgba(34, 211, 238, 0.08)';
+            ctx.beginPath();
+            ctx.moveTo(getX(0), padding.top + chartHeight);
+            for (let i = 0; i < totalPoints; i++) {
+                ctx.lineTo(getX(i), getYRain(rainData[i]));
+            }
+            ctx.lineTo(getX(totalPoints - 1), padding.top + chartHeight);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.strokeStyle = '#22d3ee';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            for (let i = 0; i < totalPoints; i++) {
+                const x = getX(i);
+                const y = getYRain(rainData[i]);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Draw Temperature Line (Red)
+            ctx.strokeStyle = '#ef4444';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            for (let i = 0; i < totalPoints; i++) {
+                const x = getX(i);
+                const y = getYTemp(tempData[i]);
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Draw Legend at Bottom
+            const legendY = height - 12;
+            ctx.font = '11px Segoe UI';
+
+            // Rain Legend
+            ctx.fillStyle = '#22d3ee';
+            ctx.fillRect(padding.left, legendY - 8, 10, 10);
+            ctx.fillText('Rain Intensity', padding.left + 16, legendY);
+
+            // Cloud Legend
+            ctx.fillStyle = '#64748b';
+            ctx.fillRect(padding.left + 120, legendY - 8, 10, 10);
+            ctx.fillText('Cloud Cover', padding.left + 136, legendY);
+
+            // Temp Legend
+            ctx.fillStyle = '#ef4444';
+            ctx.fillRect(padding.left + 235, legendY - 8, 10, 10);
+            ctx.fillText('Temperature (°C)', padding.left + 251, legendY);
+
+            // Draw Hover Tooltip if active
+            if (hoveredIndex !== null && hoveredIndex >= 0 && hoveredIndex < totalPoints) {
+                const hx = getX(hoveredIndex);
+                
+                // Vertical guide line
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(hx, padding.top);
+                ctx.lineTo(hx, padding.top + chartHeight);
+                ctx.stroke();
+
+                // Tooltip box
+                const tipText = tooltipsList[hoveredIndex];
+                const rainValTxt = `Rain: ${Math.round(rainData[hoveredIndex] * 100)}%`;
+                const cloudValTxt = `Clouds: ${Math.round(cloudData[hoveredIndex] * 100)}%`;
+                const tempValTxt = `Temp: ${tempData[hoveredIndex]}°C`;
+
+                ctx.font = 'bold 11px Segoe UI';
+                const boxWidth = 150;
+                const boxHeight = 75;
+                let boxX = hx + 15;
+                if (boxX + boxWidth > width - padding.right) boxX = hx - boxWidth - 15;
+                let boxY = padding.top + 10;
+
+                ctx.fillStyle = 'rgba(10, 10, 10, 0.95)';
+                ctx.strokeStyle = '#333333';
+                ctx.lineWidth = 1;
+                ctx.fillRect(boxX, boxY, boxWidth, boxHeight);
+                ctx.strokeRect(boxX, boxY, boxWidth, boxHeight);
+
+                ctx.fillStyle = '#ef4444';
+                ctx.fillText(tipText, boxX + 10, boxY + 18);
+                ctx.fillStyle = '#22d3ee';
+                ctx.fillText(rainValTxt, boxX + 10, boxY + 36);
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillText(cloudValTxt, boxX + 10, boxY + 50);
+                ctx.fillStyle = '#ef4444';
+                ctx.fillText(tempValTxt, boxX + 10, boxY + 64);
+            }
+        }
+
+        // Mouse hover interaction for chart
+        canvas.addEventListener('mousemove', (e) => {
+            if (!currentSimulationData) return;
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const paddingLeft = 50;
+            const paddingRight = 50;
+            const chartWidth = canvas.clientWidth - paddingLeft - paddingRight;
+
+            const relativeX = mouseX - paddingLeft;
+            if (relativeX < 0 || relativeX > chartWidth) {
+                hoveredIndex = null;
+                drawChart();
+                return;
+            }
+
+            const ratio = relativeX / chartWidth;
+            hoveredIndex = Math.round(ratio * (currentSimulationData.labels.length - 1));
+            drawChart();
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            hoveredIndex = null;
+            drawChart();
+        });
+
+        // Event Listeners
+        [rainInput, cloudInput, randomInput, tempInput].forEach(input => {
+            input.addEventListener('input', () => {
+                updateLabels();
+                generateWeekendData();
+            });
+        });
+
+        presetButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const presetKey = btn.getAttribute('data-preset');
+                const p = presets[presetKey];
+                if (!p) return;
+
+                tempInput.value = p.temp;
+                cloudInput.value = p.cloud;
+                rainInput.value = p.rain;
+                randomInput.value = p.random;
+
+                updateLabels();
+                generateWeekendData();
+            });
+        });
+
+        btnSimulate.addEventListener('click', generateWeekendData);
+
+        window.addEventListener('resize', drawChart);
+
+        updateLabels();
+        generateWeekendData();
+    </script>
+</body>
+</html>
