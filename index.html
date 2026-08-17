@@ -81,7 +81,7 @@
       --card-bg: #161922;
       --card-border: #262b38;
       --text-main: #f0f2f5;
-      --text-muted: #9aa3b4;
+      --text-muted: #f0f2f5;
       --accent: #e53935;
       --accent-hover: #ff5252;
       --accent-glow: rgba(229, 57, 53, 0.25);
@@ -574,9 +574,11 @@ header {
         <!-- Server Control -->
         <section id="acc-server-control" class="card">
           <h2>🚦 Server Control Interface</h2>
-          <p>Start and stop the server in either <strong>Rotation Mode</strong> or <strong>Normal Operation Mode</strong>. The green status indicator confirms active server execution.</p>
+         <ul><li>Start and stop the server in either <strong>Rotation</strong> or <strong>Normal Mode</strong>.</li>
+          <li>The green status indicator confirms the server is running.</li></ul>
           
           <img src="images/accscmd1.webp" class="img-preview" loading="lazy" alt="ACC Server Control Dashboard">
+          <img src="images/accscmd1d.webp" class="img-preview" loading="lazy" alt="ACC Server Running Status">
           <img src="images/accscmd1c.webp" class="img-preview" loading="lazy" alt="ACC Server Running Status">
         </section>
 
@@ -666,11 +668,16 @@ header {
 					<hr class="redhr">
 					
           <h3 id="server-timing">Server Timing</h3>
+          <ul><li>Default Overtime is 150.</li><li>Nordschleife Requires Minimum Overtime of 450.</li></ul>
           <img src="images/accscmd6.webp" class="img-preview" loading="lazy" alt="Server Timing Settings">
           
           <hr class="redhr">
           
           <h3 id="server-timing">Session Settings</h3>
+          <ul>
+          	<li>Add or Remove Free Practice, Qualifying or Race Sessions.</li>
+          	<li>Set Day, Hour of Day, Duration & time multiplier of each session.</li>
+          </ul>
           <img src="images/accscmd7.webp" class="img-preview" loading="lazy" alt="Session Settings">
         </section>
 
