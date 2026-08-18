@@ -410,11 +410,11 @@
                     <div class="schedule-inputs">
                         <div class="input-wrapper">
                             <span>Start Hour (0-23)</span>
-                            <input id="fri-hour" class="cyan" type="number" min="0" max="23" value="15">
+                            <input id="fri-hour" class="cyan" type="number" min="0" max="23" value="10">
                         </div>
                         <div class="input-wrapper">
                             <span>Duration (Mins)</span>
-                            <input id="fri-duration" class="cyan" type="number" min="15" max="360" value="60">
+                            <input id="fri-duration" class="cyan" type="number" min="15" max="360" value="120">
                         </div>
                     </div>
                 </div>
@@ -425,11 +425,11 @@
                     <div class="schedule-inputs">
                         <div class="input-wrapper">
                             <span>Start Hour (0-23)</span>
-                            <input id="sat-hour" class="emerald" type="number" min="0" max="23" value="12">
+                            <input id="sat-hour" class="emerald" type="number" min="0" max="23" value="14">
                         </div>
                         <div class="input-wrapper">
                             <span>Duration (Mins)</span>
-                            <input id="sat-duration" class="emerald" type="number" min="15" max="360" value="45">
+                            <input id="sat-duration" class="emerald" type="number" min="15" max="360" value="20">
                         </div>
                     </div>
                 </div>
@@ -440,7 +440,7 @@
                     <div class="schedule-inputs">
                         <div class="input-wrapper">
                             <span>Start Hour (0-23)</span>
-                            <input id="sun-hour" class="red" type="number" min="0" max="23" value="14">
+                            <input id="sun-hour" class="red" type="number" min="0" max="23" value="17">
                         </div>
                         <div class="input-wrapper">
                             <span>Duration (Mins)</span>
@@ -542,10 +542,10 @@
             const baseTemp = parseInt(tempInput.value);
 
             const friStartHour = parseInt(friHourInput.value) || 15;
-            const friDuration = parseInt(friDurationInput.value) || 120;
+            const friDuration = parseInt(friDurationInput.value) || 60;
             const satStartHour = parseInt(satHourInput.value) || 12;
-            const satDuration = parseInt(satDurationInput.value) || 20;
-            const sunStartHour = parseInt(sunHourInput.value) || 17;
+            const satDuration = parseInt(satDurationInput.value) || 45;
+            const sunStartHour = parseInt(sunHourInput.value) || 14;
             const sunDuration = parseInt(sunDurationInput.value) || 90;
 
             let labels = [];
