@@ -785,17 +785,17 @@
             // Rain Legend
             ctx.fillStyle = '#22d3ee';
             ctx.fillRect(padding.left, legendY - 8, 10, 10);
-            ctx.fillText('Rain Intensity', padding.left + 16, legendY);
+            ctx.fillText('Rain Intensity', padding.left + 48, legendY);
 
             // Cloud Legend
             ctx.fillStyle = '#64748b';
             ctx.fillRect(padding.left + 120, legendY - 8, 10, 10);
-            ctx.fillText('Cloud Cover', padding.left + 136, legendY);
+            ctx.fillText('Cloud Cover', padding.left + 165, legendY);
 
             // Temp Legend
             ctx.fillStyle = '#ef4444';
             ctx.fillRect(padding.left + 235, legendY - 8, 10, 10);
-            ctx.fillText('Temperature (°C)', padding.left + 251, legendY);
+            ctx.fillText('Temperature (°C)', padding.left + 291, legendY);
 
             // Draw Hover Tooltip if active
             if (hoveredIndex !== null && hoveredIndex >= 0 && hoveredIndex < totalPoints) {
