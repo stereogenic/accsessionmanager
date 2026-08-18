@@ -6,7 +6,7 @@
     <title>ACC Session Manager — 72-Hour Weekend Weather Simulator</title>
     <style>
         :root {
-            --bg-black: #000000;
+            --bg-black: #0f1117;
             --bg-panel: #0a0a0a;
             --bg-input: #121212;
             --border-neutral: #262626;
@@ -201,6 +201,10 @@
             background: var(--bg-input);
         }
 
+				.footer { text-align: center; font-size: 12px; color: #777; margin-top: 20px; border-top: 1px solid #e53935; padding-top: 8px; }
+				a{text-decoration:none; color: #e53935;}
+        a:hover { text-decoration: none; color: #ff5252; }
+    
         .divider {
             border: none;
             border-top: 1px solid var(--border-neutral);
@@ -341,7 +345,7 @@
         <header>
             <div>
                 <!-- Embedded SVG Logo -->
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 25 800 150" height="80" width="auto" style="height: 80px; width: auto;">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 25 800 150" height="80" width="auto" style="height: 90px; width: auto;">
                     <rect y="25" width="800" height="150" fill="#0f1117" rx="12"/>
                     <path d="M 57 140 A 63 63 0 1 1 162 140" fill="none" stroke="#2a2a2a" stroke-width="11" stroke-linecap="round"/>
                     <path d="M 110 37 A 63 63 0 0 1 162 140" fill="none" stroke="#e53935" stroke-width="11" stroke-linecap="round"/>
@@ -364,7 +368,7 @@
                 </svg>
             </div>
             <div class="header-info">
-                <span class="badge">Telemetry &amp; Weather Suite</span>
+                <span class="badge">Weather Forecaster</span>
                 <span class="sub">72-Hour Race Weekend Simulator</span>
             </div>
         </header>
@@ -377,35 +381,6 @@
                     <span>Weather Parameters</span>
                     <span class="pulse-dot"></span>
                 </h2>
-
-                <!-- Quick Presets -->
-                <div>
-                    <span class="section-label">Quick Presets</span>
-                    <div class="preset-grid">
-                        <button type="button" data-preset="sunny" class="preset-btn">
-                            <span>☀️ Sunny Clear</span>
-                            <span>23°C / 0 Rain</span>
-                        </button>
-                        <button type="button" data-preset="overcast" class="preset-btn">
-                            <span>☁️ Overcast</span>
-                            <span>19°C / 0 Rain</span>
-                        </button>
-                        <button type="button" data-preset="light-rain" class="preset-btn">
-                            <span>🌦️ Light Rain</span>
-                            <span>20°C / 0.12 Rain</span>
-                        </button>
-                        <button type="button" data-preset="med-rain" class="preset-btn">
-                            <span>🌧️ Medium Rain</span>
-                            <span>20°C / 0.27 Rain</span>
-                        </button>
-                        <button type="button" data-preset="heavy-rain" class="preset-btn">
-                            <span>⛈️ Heavy Rain</span>
-                            <span>16°C / 0.62 Rain</span>
-                        </button>
-                    </div>
-                </div>
-
-                <hr class="divider">
 
                 <div class="control-group">
                     <label>Base Rain Level: <span id="val-rain">0.20</span></label>
@@ -509,8 +484,10 @@
 
             </div>
         </div>
+        
     </div>
-
+    <div class="footer" style="text-align:center;">ACC Session Manager &copy; 2026<br>Developed by Andrew Mcdonald aka NewbFixer<br><a href="https://www.accsessionmanager.co.uk/" target="_blank">www.accsessionmanager.co.uk</a></div>
+		<br>
     <!-- Self-Contained Chart & Simulation Logic -->
     <script>
         const rainInput = document.getElementById('input-rain');
