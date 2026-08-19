@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ACC Session Manager — Weather Forecast Tool</title>
+    <link rel="icon" href="/favicon.ico">
     <style>
         :root {
             --bg-black: #060606;
@@ -18,6 +19,23 @@
             --accent-cyan: #06b6d4;
             --accent-emerald: #10b981;
         }
+        
+         a{text-decoration:none; color: #e53935;}
+          a:hover { text-decoration: none; color: #ff5252; }
+           hr.redhr {
+				    display: block;
+				    height: 1px;
+				    border: 0;
+				    border-top: 1px solid #e53935;
+				    margin: 0px 0px 0px 0px;
+				    padding: 0;
+			}
+			.footer {
+      text-align: center;
+      font-size: 0.85rem;
+      margin-top:0px;
+      margin-bottom:0px;
+    }
 
         * {
             box-sizing: border-box;
@@ -390,7 +408,7 @@
         <header>
             <div><a href="https://www.accsessionmanager.co.uk/">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 25 800 150" height="48" width="auto" style="height: 48px; width: auto;">
-                    <rect y="25" width="800" height="150" fill="#060606" rx="12" stroke="#222222" stroke-width="2"/>
+                    <rect y="25" width="800" height="150" fill="#060606" rx="12" stroke="#060606" stroke-width="2"/>
                     <path d="M 57 140 A 63 63 0 1 1 162 140" fill="none" stroke="#1c1c1c" stroke-width="11" stroke-linecap="round"/>
                     <path d="M 110 37 A 63 63 0 0 1 162 140" fill="none" stroke="#dc2626" stroke-width="11" stroke-linecap="round"/>
                     <rect x="78" y="84" width="63" height="17" rx="3" fill="#111" stroke="#333" stroke-width="2"/>
@@ -562,7 +580,11 @@
                    
                 </span>
             </div>
-
+       <hr class="redhr">
+  	<div class="footer" style="text-align:center;">
+      <span  style="font-size:12px;">ACC Session Manager &copy; 2026</span><br>
+      <a href="https://www.accsessionmanager.co.uk/" target="_blank">www.accsessionmanager.co.uk</a>
+  </div>
         </div>
     </div>
 

@@ -1,0 +1,5981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico">
+    <title>Scottish Legends - Fuel Calculator & Strategy Planner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            background-color: #060606;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+            margin: 0;
+            padding: 30px 15px;
+            letter-spacing: 0.04em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+          a{text-decoration:none; color: #e53935;}
+          a:hover { text-decoration: none; color: #ff5252; }
+           hr.redhr {
+				    display: block;
+				    height: 1px;
+				    border: 0;
+				    border-top: 1px solid #e53935;
+				    margin: 0px 0px 0px 0px;
+				    padding: 0;
+			}
+			.footer {
+      text-align: center;
+      font-size: 0.85rem;
+      margin-top:12px;
+      margin-bottom:12px;
+    }
+
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+        }
+        .header-box {
+            background-color: #141414;
+            border-left: 4px solid #ff1e1e;
+            border-top: 1px solid #262626;
+            border-right: 1px solid #262626;
+            border-bottom: 1px solid #262626;
+            padding: 24px 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+        .header-title {
+            margin: 0;
+            font-family: "Teko", sans-serif;
+            font-size: 50px;
+            font-weight: bold;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-style: italic;
+            line-height: 1;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .header-title span {
+            color: #ff1e1e;
+        }
+        .sub-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .dot {
+            height: 6px;
+            width: 6px;
+            background-color: #ff1e1e;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .sub-text {
+            font-size: 11px;
+            font-weight: bold;
+            font-family: monospace;
+            color: #a0a0a0;
+            letter-spacing: 0.18em;
+        }
+        .hub-link {
+            font-size: 10px;
+            font-weight: bold;
+            font-family: monospace;
+            color: #ff1e1e;
+            letter-spacing: 0.18em;
+            text-decoration: none;
+            display: block;
+            margin-top: 6px;
+        }
+        .card {
+            background-color: #141414;
+            border: 1px solid #262626;
+            border-top: 2px solid #ff1e1e;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .card-title {
+            font-size: 11px;
+            font-family: monospace;
+            letter-spacing: 0.12em;
+            font-weight: bold;
+            color: #ff1e1e;
+            margin-bottom: 12px;
+        }
+        label {
+            display: block;
+            font-size: 10px;
+            font-family: monospace;
+            letter-spacing: 0.12em;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #a0a0a0;
+        }
+        input, select {
+            width: 100%;
+            background-color: #1a1a1a;
+            border: 1px solid #333333;
+            color: #fff;
+            padding: 8px 10px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 13px;
+            border-radius: 2px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus {
+            border-color: #ff1e1e;
+        }
+        select { cursor: pointer; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .grid-flex { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        .btn-group { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 15px; }
+        .preset-btn {
+            flex: 1 1 70px;
+            background-color: #1a1a1a;
+            color: #b0b0b0;
+            border: 1px solid #333333;
+            padding: 6px 10px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 11px;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
+        .preset-btn.active {
+            background-color: #ff1e1e;
+            color: #fff;
+            border-color: #ff1e1e;
+        }
+        .action-btn {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            border: 1px solid #444;
+            padding: 6px 12px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
+        .action-btn:hover {
+            border-color: #ff1e1e;
+            color: #ff1e1e;
+        }
+        .metric-card {
+            background-color: #141414;
+            border: 1px solid #262626;
+            padding: 16px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 32px;
+            font-weight: bold;
+            font-family: "Teko", sans-serif;
+            color: #ffffff;
+            line-height: 1;
+            margin-top: 2px;
+        }
+        .warning-box {
+            background-color: rgba(255, 30, 30, 0.1);
+            border: 1px solid #ff1e1e;
+            color: #ff6b6b;
+            padding: 10px 14px;
+            font-family: monospace;
+            font-size: 11px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .stint-item {
+            background-color: #1a1a1a;
+            border: 1px solid #262626;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 10px;
+        }
+        .stint-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .stint-title {
+            font-family: "Teko", sans-serif;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 0.04em;
+            line-height: 1;
+        }
+        .stint-footer {
+            font-size: 11px;
+            color: #888;
+            font-family: monospace;
+        }
+        .pit-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #141414;
+            padding: 3px 8px;
+            border: 1px solid #333;
+        }
+        .step-btn {
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            color: #fff;
+            width: 20px;
+            height: 20px;
+            font-family: monospace;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .step-btn:hover {
+            border-color: #ff1e1e;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-color: rgba(10, 10, 10, 0.9);
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .modal-content {
+            position: relative;
+            max-width: 100%;
+            max-height: 85vh;
+            border: 1px solid #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+
+  
+  <!-- Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-family: monospace; color: #777;">
+            <a href="https://www.accsessionmanager.co.uk/">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 25 800 150" height="80" width="auto" style="height: 80px; width: auto;">
+    <rect y="25" width="800" height="150" fill="#060606" rx="12"/>
+    <path d="M 57 140 A 63 63 0 1 1 162 140" fill="none" stroke="#2a2a2a" stroke-width="11" stroke-linecap="round"/>
+    <path d="M 110 37 A 63 63 0 0 1 162 140" fill="none" stroke="#e53935" stroke-width="11" stroke-linecap="round"/>
+    <rect x="78" y="84" width="63" height="17" rx="3" fill="#1e1e1e" stroke="#333333" stroke-width="2"/>
+    <circle cx="90" cy="92" r="3" fill="#e53935"/>
+    <circle cx="100" cy="92" r="3" fill="#555555"/>
+    <line x1="115" y1="92" x2="131" y2="92" stroke="#555555" stroke-width="3" stroke-linecap="round"/>
+    <rect x="78" y="106" width="63" height="17" rx="3" fill="#1e1e1e" stroke="#333333" stroke-width="2"/>
+    <circle cx="90" cy="114" r="3" fill="#4caf50"/>
+    <circle cx="100" cy="114" r="3" fill="#555555"/>
+    <line x1="115" y1="114" x2="131" y2="114" stroke="#555555" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 110 52 L 110 78" fill="none" stroke="#ff5252" stroke-width="4" stroke-linecap="round"/>
+    <polygon points="110,45 104,56 116,56" fill="#ff5252"/>
+    <line x1="210" y1="40" x2="210" y2="160" stroke="#333333" stroke-width="2"/>
+    <line x1="210" y1="70" x2="210" y2="130" stroke="#e53935" stroke-width="2"/>
+    <text x="240" y="85" font-family="Segoe UI, sans-serif" font-weight="900" font-size="42" fill="#ffffff" letter-spacing="4">ACC</text>
+    <text x="240" y="125" font-family="Segoe UI, sans-serif" font-weight="700" font-size="28" fill="#e53935" letter-spacing="2">SESSION MANAGER</text>
+    <rect x="545" y="102" width="55" height="24" rx="4" fill="#2d1717" stroke="#e53935" stroke-width="1"/>
+    <text x="553" y="118" font-family="Segoe UI, sans-serif" font-weight="bold" font-size="12" fill="#ff5252">v1.02</text>
+  </svg></a>
+  <div style="padding-right:14px;font-size:14px;font-family:Roboto;text-align:center;color:#ffffff;">PIT & STRATEGY<br><span style="color: #ff1e1e;">Calculator</span></div>
+        </div>
+       
+
+        <!-- Telemetry Lookup Card -->
+        <div class="card">
+            <div class="card-title">🔍 ESTIMATE FUEL PER LAP GUIDE</div>
+            <div class="grid-2" style="margin-bottom: 12px;">
+                <div>
+                    <label>SELECT CAR MODEL</label>
+                    <select id="lookupCarSelect"></select>
+                </div>
+                <div>
+                    <label>SELECT TRACK CIRCUIT</label>
+                    <select id="lookupTrackSelect"></select>
+                </div>
+            </div>
+            <div id="lookupResultDisplay" style="display: none; grid-template-columns: 1fr 1fr; gap: 10px; background-color: #1a1a1a; padding: 10px 14px; border: 1px solid #333;">
+                <div>
+                    <div style="font-size: 9px; color: #888; font-family: monospace;">AVG FUEL / LAP</div>
+                    <div id="resFuel" style="font-size: 22px; font-family: 'Teko', sans-serif; color: #ffffff; font-weight: bold; line-height: 1;">0 <span style="font-size: 13px; color: #888;">L</span></div>
+                </div>
+                <div>
+                    <div style="font-size: 9px; color: #888; font-family: monospace;">BASE LAP TIME</div>
+                    <div id="resLapTime" style="font-size: 22px; font-family: 'Teko', sans-serif; color: #ffffff; font-weight: bold; line-height: 1;">0:00.0</div>
+                </div>
+            </div>
+            <div id="lookupEmpty" style="font-family: monospace; font-size: 11px; color: #777; text-align: center; padding: 8px; display: none;">NO TELEMETRY MATCH FOUND</div>
+        </div>
+
+        <!-- Calculator Inputs Card -->
+        <div class="card">
+            <div style="margin-bottom: 15px;">
+                <label style="margin-bottom: 6px;">BASELINE STINT PRESETS</label>
+                <div class="btn-group" id="presetButtons"></div>
+            </div>
+
+            <div class="grid-flex">
+                <div>
+                    <label>AVG LAP TIME (MIN : SEC)</label>
+                    <div class="grid-2" style="gap: 6px;">
+                        <input type="number" id="lapM" min="0" value="1">
+                        <input type="number" id="lapS" min="0" max="59.99" step="0.1" value="52.0">
+                    </div>
+                </div>
+                <div>
+                    <label>FUEL PER LAP (LITRES)</label>
+                    <input type="number" id="fuelPerLap" min="0" step="0.01" value="2.63">
+                </div>
+                <div>
+                    <label>RACE LENGTH (HRS : MINS)</label>
+                    <div class="grid-2" style="gap: 6px;">
+                        <input type="number" id="raceH" min="0" value="1">
+                        <input type="number" id="raceM" min="0" max="59" value="0">
+                    </div>
+                </div>
+                <div>
+                    <label id="carModelLabel">CAR MODEL (TANK: 114L)</label>
+                    <select id="carSelect"></select>
+                    <input type="number" id="customTankInput" min="1" placeholder="Enter Capacity L" style="display: none; margin-top: 6px;">
+                </div>
+                <div>
+                    <label>PLANNED PIT STOPS</label>
+                    <input type="number" id="pitStopsInput" min="0" value="0">
+                </div>
+            </div>
+
+            <div style="margin-top: 14px; display: flex; justify-content: flex-end;">
+                <button type="button" class="action-btn" id="helpBtn">SHOW HELP</button>
+            </div>
+        </div>
+
+        <!-- Output Metrics Grid -->
+        <div class="grid-2" style="margin-bottom: 20px;">
+            <div class="metric-card">
+                <div style="font-size: 10px; color: #888; font-family: monospace;">TOTAL FUEL NEEDED</div>
+                <div id="totalFuelOutput" class="metric-value">0 L</div>
+            </div>
+            <div class="metric-card">
+                <div style="font-size: 10px; color: #888; font-family: monospace;">TOTAL RACE LAPS</div>
+                <div id="totalLapsOutput" class="metric-value">0 Laps</div>
+            </div>
+        </div>
+
+        <!-- Warning Box -->
+        <div id="warningBox" class="warning-box"></div>
+
+        <!-- Strategy Breakdown Card -->
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span class="card-title" style="margin: 0;">STINT & PIT STOP SCHEDULE</span>
+                <span style="font-size: 9px; color: #777; font-family: monospace;">+1 SAFETY LAP INCLUDED</span>
+            </div>
+            <div id="strategyContainer">
+                <div style="font-family: monospace; font-size: 11px; color: #777;">Enter valid lap time, fuel usage, and race duration to compute strategy...</div>
+            </div>
+        </div>
+        
+        <hr class="redhr">
+  	<div class="footer">
+      <span  style="font-size:12px;">ACC Session Manager &copy; 2026</span><br>
+      <a href="https://www.accsessionmanager.co.uk/" target="_blank">www.accsessionmanager.co.uk</a>
+  </div>
+
+    
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="helpModal">
+        <div style="width: 100%; max-width: 1100px; display: flex; justify-content: flex-end; margin-bottom: 8px;">
+            <button type="button" class="action-btn" id="closeHelpBtn">✕ CLOSE</button>
+        </div>
+        <div class="modal-content">
+            <img src="images/fuelcalc.webp" alt="Fuel Calculator Help Guide">
+        </div>
+    </div>
+
+    <script>
+        // =========================================================================
+        // === PASTE YOUR CONVERTED FUEL GUIDE ARRAY HERE (Generated by convert.js) ===
+        // =========================================================================
+        const FUEL_GUIDE_DATA = [
+    {
+        "car_model": "car_model",
+        "track_name": "track_name",
+        "avg_lap_time": "avg_lap_time",
+        "est_fuel_per_lap": "est_fuel_per_lap"
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.25
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.35
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.45
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.15
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.45
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.55
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.1
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 13.8
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.4
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.45
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 3.85
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.4
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.45
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.15
+    },
+    {
+        "car_model": "Ferrari 296 GT3",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.94
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.32
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.45
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.52
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.78
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.73
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.94
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.21
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.73
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.55
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.66
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.19
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 14.21
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.63
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.5
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.73
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.55
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.94
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 3.97
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.5
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.52
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.24
+    },
+    {
+        "car_model": "BMW M4 GT3",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.63
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 3.14
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.48
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.69
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.97
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.92
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 3.14
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.37
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.92
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.8
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.91
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.41
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 15.18
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.74
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.92
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.8
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 3.14
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 4.24
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.74
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.47
+    },
+    {
+        "car_model": "Ford Mustang GT3",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.25
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.35
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.45
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.15
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.45
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.55
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.1
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 13.8
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.4
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.45
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 3.85
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.4
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.45
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.15
+    },
+    {
+        "car_model": "McLaren 720S GT3 Evo",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 3.02
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.39
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.55
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.6
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.86
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 3.02
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.28
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.66
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.76
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.29
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 14.63
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.6
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.66
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 3.02
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 4.08
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.6
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.6
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.34
+    },
+    {
+        "car_model": "Mercedes-AMG GT3 Evo",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.25
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.35
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.45
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.15
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.45
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.55
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.1
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 13.8
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.4
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.45
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 3.85
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.4
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.45
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.15
+    },
+    {
+        "car_model": "Aston Martin V8 Vantage GT3",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.91
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.29
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.42
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.5
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.75
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.91
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.19
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.52
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.62
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.16
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 14.08
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.6
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.47
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.52
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.91
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 3.93
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.47
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.5
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.21
+    },
+    {
+        "car_model": "Bentley Continental GT3",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.6
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.96
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.34
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.48
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.76
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.96
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.24
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.76
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.59
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.69
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.22
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 14.35
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.54
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.76
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.59
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.96
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 4
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.54
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.28
+    },
+    {
+        "car_model": "Lamborghini Huracán EVO2",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.96
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.34
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.48
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.76
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.96
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.24
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.76
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.59
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.69
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.22
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 14.35
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.54
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.76
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.59
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.96
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 4
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.54
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.28
+    },
+    {
+        "car_model": "Audi R8 LMS Evo II",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.88
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.27
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.38
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.47
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.73
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.68
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.88
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.17
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.68
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.48
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.59
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.13
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 13.94
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.58
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.43
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.68
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.48
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.88
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 3.89
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.43
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.47
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.18
+    },
+    {
+        "car_model": "Porsche 911 GT3 R (992)",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.58
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.25
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.35
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.45
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.15
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.45
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.55
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.1
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 13.8
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.4
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.45
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 3.85
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.4
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.45
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.15
+    },
+    {
+        "car_model": "Ferrari 488 GT3 Evo",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.88
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.27
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.38
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.47
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.73
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.68
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.88
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.17
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.68
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.48
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.59
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.13
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 13.94
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.58
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.43
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.68
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.48
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.88
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 3.89
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.43
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.47
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.18
+    },
+    {
+        "car_model": "Honda NSX GT3 Evo",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.58
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 3.05
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.41
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.58
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.62
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.89
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.84
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 3.05
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.3
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.84
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.69
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.8
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.32
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 14.77
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.73
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.64
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.84
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.69
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 3.05
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 4.12
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.64
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.62
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.37
+    },
+    {
+        "car_model": "Lexus RC F GT3",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.73
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.94
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.32
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.45
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.52
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.78
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.73
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.94
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.21
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.73
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.55
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.66
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.19
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 14.21
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.63
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.5
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.73
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.55
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.94
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 3.97
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.5
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.52
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.24
+    },
+    {
+        "car_model": "Nissan GT-R Nismo GT3",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.63
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 3.02
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.39
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.55
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.6
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.86
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 3.02
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.28
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.66
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.76
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.29
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 14.63
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.6
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.66
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 3.02
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 4.08
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.6
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.6
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.34
+    },
+    {
+        "car_model": "Audi R8 LMS GT2",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.96
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.34
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.48
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.76
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.96
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.24
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.76
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.59
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.69
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.22
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 14.35
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.54
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.76
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.59
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.96
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 4
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.54
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.28
+    },
+    {
+        "car_model": "KTM X-Bow GT2",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 3.08
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.43
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.62
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.92
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.86
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 3.08
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.32
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.86
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.73
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.83
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.35
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 14.9
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.75
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.67
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.86
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.73
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 3.08
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 4.16
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.67
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.4
+    },
+    {
+        "car_model": "Maserati MC20 GT2",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.75
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 3.14
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.48
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.69
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.97
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.92
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 3.14
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.37
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.92
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.8
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.91
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.41
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 15.18
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.74
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.92
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.8
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 3.14
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 4.24
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.74
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.47
+    },
+    {
+        "car_model": "Mercedes-AMG GT2",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 3.08
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.43
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.62
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.92
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.86
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 3.08
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.32
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.86
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.73
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.83
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.35
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 14.9
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.75
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.67
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.86
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.73
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 3.08
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 4.16
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.67
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.4
+    },
+    {
+        "car_model": "Porsche 935 GT2",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.75
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 3.02
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.39
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.55
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.6
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.86
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 3.02
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.28
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.66
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.76
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.29
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 14.63
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.6
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.81
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.66
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 3.02
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 4.08
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.6
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.6
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.34
+    },
+    {
+        "car_model": "Porsche 911 GT2 RS CS Evo",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 1.77
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 1.4
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 2.08
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 1.52
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 1.67
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 1.64
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 1.77
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 1.33
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.64
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 2.14
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 2.2
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 1.92
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 8.56
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.58
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 2.11
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 1.64
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 2.14
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 1.77
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 2.39
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 2.11
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 1.52
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 1.95
+    },
+    {
+        "car_model": "Alpine A110 GT4",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 1.58
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 1.94
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 1.53
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 2.28
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 1.67
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 1.84
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 1.8
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 1.94
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 1.46
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.8
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 2.35
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 2.41
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 2.11
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 9.38
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.73
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 2.31
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 1.8
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 2.35
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 1.94
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 2.62
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 2.31
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 1.67
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 2.14
+    },
+    {
+        "car_model": "Aston Martin Vantage V8 GT4",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 1.73
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 1.88
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 1.49
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 2.21
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 1.62
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 1.78
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 1.75
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 1.88
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 1.42
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.75
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 2.28
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 2.34
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 2.05
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 9.11
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.68
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 2.24
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 1.75
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 2.28
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 1.88
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 2.54
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 2.24
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 1.62
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 2.08
+    },
+    {
+        "car_model": "Audi R8 LMS GT4",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 1.68
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 1.94
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 1.53
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 2.28
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 1.67
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 1.84
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 1.8
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 1.94
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 1.46
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.8
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 2.35
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 2.41
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 2.11
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 9.38
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.73
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 2.31
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 1.8
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 2.35
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 1.94
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 2.62
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 2.31
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 1.67
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 2.14
+    },
+    {
+        "car_model": "BMW M4 GT4",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 1.73
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 1.99
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 1.57
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 2.34
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 1.72
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 1.89
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 1.85
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 1.99
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 1.5
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.85
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 2.42
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 2.48
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 2.17
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 9.66
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.78
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 2.38
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 1.85
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 2.42
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 1.99
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 2.69
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 2.38
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 1.72
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 2.2
+    },
+    {
+        "car_model": "Chevrolet Camaro GT4.R",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 1.78
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 1.71
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 1.35
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 2.01
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 1.47
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 1.62
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 1.59
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 1.71
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 1.29
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.59
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 2.07
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 2.13
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 1.86
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 8.28
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.53
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 2.04
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 1.59
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 2.07
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 1.71
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 2.31
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 2.04
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 1.47
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 1.89
+    },
+    {
+        "car_model": "Ginetta G55 GT4",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 1.53
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 1.65
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 1.3
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 1.94
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 1.42
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 1.57
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 1.54
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 1.65
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 1.25
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.54
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 2
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 2.06
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 1.8
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 8
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.48
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 1.97
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 1.54
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 2
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 1.65
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 2.23
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 1.97
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 1.42
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 1.83
+    },
+    {
+        "car_model": "KTM X-Bow GT4",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 1.48
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 1.94
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 1.53
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 2.28
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 1.67
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 1.84
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 1.8
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 1.94
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 1.46
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.8
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 2.35
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 2.41
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 2.11
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 9.38
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.73
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 2.31
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 1.8
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 2.35
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 1.94
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 2.62
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 2.31
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 1.67
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 2.14
+    },
+    {
+        "car_model": "Maserati GranTurismo MC GT4",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 1.73
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 1.82
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 1.44
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 2.14
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 1.57
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 1.73
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 1.7
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 1.82
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 1.38
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.7
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 2.21
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 2.27
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 1.98
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 8.83
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.63
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 2.18
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 1.7
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 2.21
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 1.82
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 2.46
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 2.18
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 1.57
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 2.02
+    },
+    {
+        "car_model": "McLaren 570S GT4",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 1.63
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 1.94
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 1.53
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 2.28
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 1.67
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 1.84
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 1.8
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 1.94
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 1.46
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.8
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 2.35
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 2.41
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 2.11
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 9.38
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.73
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 2.31
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 1.8
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 2.35
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 1.94
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 2.62
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 2.31
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 1.67
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 2.14
+    },
+    {
+        "car_model": "Mercedes-AMG GT4",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 1.73
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 1.85
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 1.46
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 2.18
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 1.59
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 1.76
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 1.72
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 1.85
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 1.4
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.72
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 2.24
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 2.31
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 2.02
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 8.97
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.66
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 2.21
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 1.72
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 2.24
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 1.85
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 2.5
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 2.21
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 1.59
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 2.05
+    },
+    {
+        "car_model": "Porsche 718 Cayman GT4 Clubsport",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 1.66
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 1.48
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 1.17
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 1.74
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 1.27
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 1.4
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 1.38
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 1.48
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 1.12
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.38
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 1.79
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 1.85
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 1.61
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 7.18
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 1.33
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 1.77
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 1.38
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 1.79
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 1.48
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 2
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 1.77
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 1.27
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 1.64
+    },
+    {
+        "car_model": "BMW M2 CS Racing",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 1.33
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.71
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.14
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.18
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.33
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.56
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.52
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.71
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.04
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.52
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.28
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.37
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 2.94
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 13.11
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.42
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.23
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.52
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.28
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.71
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 3.66
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.23
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.33
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 2.99
+    },
+    {
+        "car_model": "Ferrari 488 Challenge Evo",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.42
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.25
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.35
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.45
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.15
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.45
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.55
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.1
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 13.8
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.4
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.65
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.45
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 3.85
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.4
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.45
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.15
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.55
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.91
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.29
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.42
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.5
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.75
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.91
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 2.19
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.52
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.62
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 3.16
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 14.08
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.6
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.47
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.7
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.52
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.91
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 3.93
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.47
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.5
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 3.21
+    },
+    {
+        "car_model": "Lamborghini Huracán Super Trofeo Evo 2",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.6
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.56
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.02
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.02
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.21
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.43
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.38
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.56
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 1.94
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.38
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.11
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.19
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 2.79
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 12.42
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.29
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.06
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.38
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.11
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.56
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 3.47
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.06
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.21
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 2.83
+    },
+    {
+        "car_model": "Porsche 911 II GT3 Cup (991.2)",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.29
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Barcelona (Catalunya)",
+        "avg_lap_time": "1:44.0",
+        "est_fuel_per_lap": 2.62
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Brands Hatch",
+        "avg_lap_time": "1:23.5",
+        "est_fuel_per_lap": 2.07
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Circuit of the Americas (COTA)",
+        "avg_lap_time": "2:04.5",
+        "est_fuel_per_lap": 3.08
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Donington Park",
+        "avg_lap_time": "1:26.5",
+        "est_fuel_per_lap": 2.25
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Hungaroring",
+        "avg_lap_time": "1:43.5",
+        "est_fuel_per_lap": 2.48
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Indianapolis",
+        "avg_lap_time": "1:36.0",
+        "est_fuel_per_lap": 2.44
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Kyalami",
+        "avg_lap_time": "1:41.5",
+        "est_fuel_per_lap": 2.62
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Laguna Seca",
+        "avg_lap_time": "1:22.5",
+        "est_fuel_per_lap": 1.98
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Misano",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.44
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Monza",
+        "avg_lap_time": "1:48.0",
+        "est_fuel_per_lap": 3.17
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Mount Panorama (Bathurst)",
+        "avg_lap_time": "2:01.5",
+        "est_fuel_per_lap": 3.27
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Nürburgring GP",
+        "avg_lap_time": "1:54.0",
+        "est_fuel_per_lap": 2.85
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Nürburgring Nordschleife (24h)",
+        "avg_lap_time": "8:15.0",
+        "est_fuel_per_lap": 12.7
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Oulton Park",
+        "avg_lap_time": "1:33.5",
+        "est_fuel_per_lap": 2.35
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Paul Ricard",
+        "avg_lap_time": "1:53.5",
+        "est_fuel_per_lap": 3.13
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Red Bull Ring",
+        "avg_lap_time": "1:28.5",
+        "est_fuel_per_lap": 2.44
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Silverstone",
+        "avg_lap_time": "1:58.5",
+        "est_fuel_per_lap": 3.17
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Snetterton",
+        "avg_lap_time": "1:46.0",
+        "est_fuel_per_lap": 2.62
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Spa-Francorchamps",
+        "avg_lap_time": "2:17.0",
+        "est_fuel_per_lap": 3.54
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Suzuka",
+        "avg_lap_time": "1:59.0",
+        "est_fuel_per_lap": 3.13
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Valencia",
+        "avg_lap_time": "1:31.5",
+        "est_fuel_per_lap": 2.25
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Watkins Glen",
+        "avg_lap_time": "1:44.5",
+        "est_fuel_per_lap": 2.9
+    },
+    {
+        "car_model": "Porsche 911 GT3 Cup (992)",
+        "track_name": "Zandvoort",
+        "avg_lap_time": "1:35.5",
+        "est_fuel_per_lap": 2.35
+    }
+];
+
+        // ACC Car Roster Database
+        const ACC_CARS = [
+            { name: 'Aston Martin V12 Vantage GT3 (2013)', capacity: 114, category: 'GT3' },
+            { name: 'Aston Martin V8 Vantage GT3 (2019)', capacity: 120, category: 'GT3' },
+            { name: 'Audi R8 LMS GT3 (2015)', capacity: 120, category: 'GT3' },
+            { name: 'Audi R8 LMS Evo GT3 (2019)', capacity: 120, category: 'GT3' },
+            { name: 'Audi R8 LMS Evo II GT3 (2022)', capacity: 120, category: 'GT3' },
+            { name: 'Bentley Continental GT3 (2015)', capacity: 132, category: 'GT3' },
+            { name: 'Bentley Continental GT3 (2018)', capacity: 132, category: 'GT3' },
+            { name: 'BMW M6 GT3 (2017)', capacity: 125, category: 'GT3' },
+            { name: 'BMW M4 GT3 (2021)', capacity: 125, category: 'GT3' },
+            { name: 'Emil Frey Jaguar G3', capacity: 119, category: 'GT3' },
+            { name: 'Ferrari 488 GT3 (2018)', capacity: 110, category: 'GT3' },
+            { name: 'Ferrari 488 GT3 Evo (2020)', capacity: 110, category: 'GT3' },
+            { name: 'Ferrari 296 GT3 (2023)', capacity: 110, category: 'GT3' },
+            { name: 'Ford Mustang GT3 (2024)', capacity: 110, category: 'GT3' },
+            { name: 'Honda NSX GT3 (2017)', capacity: 120, category: 'GT3' },
+            { name: 'Honda NSX GT3 Evo (2019)', capacity: 120, category: 'GT3' },
+            { name: 'Lamborghini Huracán GT3 (2015)', capacity: 120, category: 'GT3' },
+            { name: 'Lamborghini Huracán GT3 Evo (2019)', capacity: 120, category: 'GT3' },
+            { name: 'Lamborghini Huracán GT3 Evo2 (2023)', capacity: 120, category: 'GT3' },
+            { name: 'Lexus RC F GT3', capacity: 120, category: 'GT3' },
+            { name: 'McLaren 650S GT3', capacity: 125, category: 'GT3' },
+            { name: 'McLaren 720S GT3 (2019)', capacity: 125, category: 'GT3' },
+            { name: 'McLaren 720S GT3 Evo (2023)', capacity: 125, category: 'GT3' },
+            { name: 'Mercedes-AMG GT3 (2015)', capacity: 120, category: 'GT3' },
+            { name: 'Mercedes-AMG GT3 Evo (2020)', capacity: 120, category: 'GT3' },
+            { name: 'Nissan GT-R NISMO GT3 (2015)', capacity: 132, category: 'GT3' },
+            { name: 'Nissan GT-R NISMO GT3 (2018)', capacity: 132, category: 'GT3' },
+            { name: 'Porsche 911 GT3 R (991.1 - 2018)', capacity: 120, category: 'GT3' },
+            { name: 'Porsche 911 GT3 R (991.2 - 2019)', capacity: 120, category: 'GT3' },
+            { name: 'Porsche 911 GT3 R (992 - 2023)', capacity: 120, category: 'GT3' },
+            { name: 'Reiter Engineering R-EX GT3', capacity: 130, category: 'GT3' },
+            { name: 'Audi R8 LMS GT2', capacity: 110, category: 'GT2' },
+            { name: 'KTM X-Bow GT2', capacity: 120, category: 'GT2' },
+            { name: 'Maserati MC20 GT2', capacity: 120, category: 'GT2' },
+            { name: 'Mercedes-AMG GT2', capacity: 120, category: 'GT2' },
+            { name: 'Porsche 911 GT2 RS Clubsport Evo', capacity: 115, category: 'GT2' },
+            { name: 'Alpine A110 GT4', capacity: 95, category: 'GT4' },
+            { name: 'Aston Martin Vantage GT4', capacity: 120, category: 'GT4' },
+            { name: 'Audi R8 LMS GT4', capacity: 120, category: 'GT4' },
+            { name: 'BMW M4 GT4', capacity: 125, category: 'GT4' },
+            { name: 'Chevrolet Camaro GT4.R', capacity: 120, category: 'GT4' },
+            { name: 'Ginetta G55 GT4', capacity: 107, category: 'GT4' },
+            { name: 'KTM X-Bow GT4', capacity: 120, category: 'GT4' },
+            { name: 'Maserati GranTurismo MC GT4', capacity: 110, category: 'GT4' },
+            { name: 'McLaren 570S GT4', capacity: 110, category: 'GT4' },
+            { name: 'Mercedes-AMG GT4', capacity: 120, category: 'GT4' },
+            { name: 'Porsche 718 Cayman GT4 Clubsport', capacity: 115, category: 'GT4' },
+            { name: 'Ferrari 488 Challenge Evo', capacity: 124, category: 'GTC' },
+            { name: 'Lamborghini Huracán Super Trofeo', capacity: 120, category: 'GTC' },
+            { name: 'Lamborghini Huracán Super Trofeo EVO2', capacity: 120, category: 'GTC' },
+            { name: 'Porsche 911 GT3 Cup (991.2)', capacity: 100, category: 'GTC' },
+            { name: 'Porsche 911 GT3 Cup (992)', capacity: 110, category: 'GTC' },
+            { name: 'BMW M2 CS Racing', capacity: 84, category: 'TCX' }
+        ];
+
+        let customPitLaps = [];
+        let pitFuelEnabled = [];
+
+        // DOM Elements
+        const lapMEl = document.getElementById('lapM');
+        const lapSEl = document.getElementById('lapS');
+        const fuelPerLapEl = document.getElementById('fuelPerLap');
+        const raceHEl = document.getElementById('raceH');
+        const raceMEl = document.getElementById('raceM');
+        const carSelectEl = document.getElementById('carSelect');
+        const customTankInputEl = document.getElementById('customTankInput');
+        const carModelLabelEl = document.getElementById('carModelLabel');
+        const pitStopsInputEl = document.getElementById('pitStopsInput');
+        const presetButtonsEl = document.getElementById('presetButtons');
+        const totalFuelOutputEl = document.getElementById('totalFuelOutput');
+        const totalLapsOutputEl = document.getElementById('totalLapsOutput');
+        const warningBoxEl = document.getElementById('warningBox');
+        const strategyContainerEl = document.getElementById('strategyContainer');
+        const lookupCarSelectEl = document.getElementById('lookupCarSelect');
+        const lookupTrackSelectEl = document.getElementById('lookupTrackSelect');
+        const lookupResultDisplayEl = document.getElementById('lookupResultDisplay');
+        const lookupEmptyEl = document.getElementById('lookupEmpty');
+        const resFuelEl = document.getElementById('resFuel');
+        const resLapTimeEl = document.getElementById('resLapTime');
+        const helpModalEl = document.getElementById('helpModal');
+
+        function initCarDropdown() {
+            const categories = ['GT3', 'GT2', 'GT4', 'GTC', 'TCX'];
+            let html = '';
+            categories.forEach(cat => {
+                html += `<optgroup label="--- ${cat} CLASS ---">`;
+                ACC_CARS.forEach((car, idx) => {
+                    if (car.category === cat) {
+                        html += `<option value="${idx}">${car.name} (${car.capacity}L)</option>`;
+                    }
+                });
+                html += `</optgroup>`;
+            });
+            html += `<optgroup label="--- OTHER ---"><option value="-1">Custom Capacity...</option></optgroup>`;
+            carSelectEl.innerHTML = html;
+        }
+
+        function initPresets() {
+            let html = '';
+            [0, 1, 2, 3, 4, 5].forEach(stops => {
+                html += `<button type="button" class="preset-btn ${stops === 0 ? 'active' : ''}" data-stops="${stops}">${stops} ${stops === 1 ? 'STOP' : 'STOPS'}</button>`;
+            });
+            presetButtonsEl.innerHTML = html;
+
+            presetButtonsEl.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const stops = parseInt(e.target.getAttribute('data-stops'));
+                    pitStopsInputEl.value = stops;
+                    updatePresetActiveState(stops);
+                    onPitStopsChanged(stops);
+                });
+            });
+        }
+
+        function updatePresetActiveState(activeStops) {
+            presetButtonsEl.querySelectorAll('.preset-btn').forEach(btn => {
+                const stops = parseInt(btn.getAttribute('data-stops'));
+                if (stops === activeStops) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        function initTelemetryLookup() {
+            if (!FUEL_GUIDE_DATA || FUEL_GUIDE_DATA.length === 0) {
+                lookupEmptyEl.style.display = 'block';
+                return;
+            }
+
+            const uniqueCars = Array.from(new Set(FUEL_GUIDE_DATA.map(i => i.car_model))).sort();
+            const uniqueTracks = Array.from(new Set(FUEL_GUIDE_DATA.map(i => i.track_name))).sort();
+
+            lookupCarSelectEl.innerHTML = uniqueCars.map(c => `<option value="${c}">${c}</option>`).join('');
+            lookupTrackSelectEl.innerHTML = uniqueTracks.map(t => `<option value="${t}">${t}</option>`).join('');
+
+            updateTelemetryLookup();
+        }
+
+        function updateTelemetryLookup() {
+            if (!FUEL_GUIDE_DATA || FUEL_GUIDE_DATA.length === 0) return;
+
+            const car = lookupCarSelectEl.value;
+            const track = lookupTrackSelectEl.value;
+            const match = FUEL_GUIDE_DATA.find(i => i.car_model === car && i.track_name === track);
+
+            if (match) {
+                lookupResultDisplayEl.style.display = 'grid';
+                lookupEmptyEl.style.display = 'none';
+                resFuelEl.innerHTML = `${match.est_fuel_per_lap} <span style="font-size: 13px; color: #888;">L</span>`;
+                resLapTimeEl.innerText = match.avg_lap_time;
+                fuelPerLapEl.value = match.avg_fuel_per_lap || match.est_fuel_per_lap;
+                calculate();
+            } else {
+                lookupResultDisplayEl.style.display = 'none';
+                lookupEmptyEl.style.display = 'block';
+            }
+        }
+
+        function computeBalancedPitLaps(stopsCount, raceTotalLaps) {
+            if (stopsCount <= 0 || raceTotalLaps <= 0) return [];
+            const numStints = stopsCount + 1;
+            const baseLapsPerStint = Math.floor(raceTotalLaps / numStints);
+            let extraLaps = raceTotalLaps % numStints;
+
+            const stops = [];
+            let currentLap = 0;
+            for (let i = 0; i < stopsCount; i++) {
+                const stintLaps = baseLapsPerStint + (extraLaps > 0 ? 1 : 0);
+                if (extraLaps > 0) extraLaps--;
+                currentLap += stintLaps;
+                stops.push(currentLap);
+            }
+            return stops;
+        }
+
+        function onPitStopsChanged(stops) {
+            const lapM = parseFloat(lapMEl.value) || 0;
+            const lapS = parseFloat(lapSEl.value) || 0;
+            const raceH = parseFloat(raceHEl.value) || 0;
+            const raceM = parseFloat(raceMEl.value) || 0;
+            const totalLapTimeSec = lapM * 60 + lapS;
+            const totalRaceTimeSec = raceH * 3600 + raceM * 60;
+            const totalLaps = (totalLapTimeSec > 0 && totalRaceTimeSec > 0) ? Math.ceil(totalRaceTimeSec / totalLapTimeSec) + 1 : 0;
+
+            if (stops > 0 && totalLaps > 0) {
+                customPitLaps = computeBalancedPitLaps(stops, totalLaps);
+                pitFuelEnabled = Array(stops).fill(true);
+            } else {
+                customPitLaps = [];
+                pitFuelEnabled = [];
+            }
+            calculate();
+        }
+
+        function getActiveTankCap() {
+            const idx = parseInt(carSelectEl.value);
+            if (idx === -1) {
+                return parseFloat(customTankInputEl.value) || 0;
+            }
+            return ACC_CARS[idx].capacity;
+        }
+
+        function calculate() {
+            const lapM = parseFloat(lapMEl.value) || 0;
+            const lapS = parseFloat(lapSEl.value) || 0;
+            const fuelPerLap = parseFloat(fuelPerLapEl.value) || 0;
+            const raceH = parseFloat(raceHEl.value) || 0;
+            const raceM = parseFloat(raceMEl.value) || 0;
+            const pitStops = parseInt(pitStopsInputEl.value) || 0;
+
+            const totalLapTimeSec = lapM * 60 + lapS;
+            const totalRaceTimeSec = raceH * 3600 + raceM * 60;
+            const validInputs = totalLapTimeSec > 0 && totalRaceTimeSec > 0 && fuelPerLap > 0;
+
+            const rawLaps = validInputs ? totalRaceTimeSec / totalLapTimeSec : 0;
+            const totalLaps = validInputs ? Math.ceil(rawLaps) + 1 : 0;
+            const totalFuelNeeded = Math.ceil(totalLaps * fuelPerLap);
+            const tankCap = getActiveTankCap();
+
+            const selectedIdx = parseInt(carSelectEl.value);
+            if (selectedIdx === -1) {
+                customTankInputEl.style.display = 'block';
+                carModelLabelEl.innerText = `CAR MODEL (CUSTOM TANK: ${tankCap}L)`;
+            } else {
+                customTankInputEl.style.display = 'none';
+                carModelLabelEl.innerText = `CAR MODEL (TANK: ${tankCap}L)`;
+            }
+
+            totalFuelOutputEl.innerText = validInputs ? `${totalFuelNeeded} L` : '0 L';
+            totalLapsOutputEl.innerText = validInputs ? `${totalLaps} Laps` : '0 Laps';
+
+            if (!validInputs) {
+                strategyContainerEl.innerHTML = `<div style="font-family: monospace; font-size: 11px; color: #777;">Enter valid lap time, fuel usage, and race duration to compute strategy...</div>`;
+                warningBoxEl.style.display = 'none';
+                return;
+            }
+
+            if (customPitLaps.length !== pitStops) {
+                customPitLaps = computeBalancedPitLaps(pitStops, totalLaps);
+                pitFuelEnabled = Array(pitStops).fill(true);
+            }
+
+            let strategyStints = [];
+            let maxStintFuelNeeded = 0;
+            let isInvalidSequence = false;
+            let stints = [];
+            let prevLap = 0;
+
+            for (let s = 0; s <= pitStops; s++) {
+                let endLap = (s < pitStops) ? (customPitLaps[s] !== undefined ? customPitLaps[s] : null) : totalLaps;
+                if (endLap === null) {
+                    stints.push({ stintIndex: s, startLap: prevLap + 1, endLap: null, stintLaps: 0, incomplete: true });
+                    continue;
+                }
+                if (endLap <= prevLap || (s < pitStops && endLap >= totalLaps)) {
+                    isInvalidSequence = true;
+                }
+                const stintLaps = Math.max(0, endLap - prevLap);
+                stints.push({ stintIndex: s, startLap: prevLap + 1, endLap: endLap, stintLaps: stintLaps });
+                prevLap = endLap;
+            }
+
+            for (let s = 0; s <= pitStops; s++) {
+                const stintInfo = stints[s];
+                if (!stintInfo || stintInfo.incomplete) continue;
+
+                const isStart = s === 0;
+                const pitIndex = s - 1;
+                const takesFuel = isStart ? true : (pitFuelEnabled[pitIndex] !== false);
+                let fuelNeeded = 0;
+
+                if (takesFuel) {
+                    let totalLapsForRefuel = stintInfo.stintLaps;
+                    for (let next = s + 1; next <= pitStops; next++) {
+                        if (pitFuelEnabled[next - 1] !== false) break;
+                        if (stints[next]) totalLapsForRefuel += stints[next].stintLaps;
+                    }
+                    fuelNeeded = Math.ceil(totalLapsForRefuel * fuelPerLap);
+                }
+
+                if (fuelNeeded > maxStintFuelNeeded) maxStintFuelNeeded = fuelNeeded;
+
+                strategyStints.push({
+                    type: isStart ? 'START' : `PIT STOP ${s}`,
+                    stintIndex: s + 1,
+                    startLap: stintInfo.startLap,
+                    endLap: stintInfo.endLap,
+                    stintLaps: stintInfo.stintLaps,
+                    fuel: fuelNeeded,
+                    takesFuel: takesFuel,
+                    pitIndex: pitIndex
+                });
+            }
+
+            const isOverTankCap = maxStintFuelNeeded > tankCap;
+            let warningHtml = '';
+            if (isOverTankCap || isInvalidSequence) {
+                warningBoxEl.style.display = 'block';
+                if (isOverTankCap) {
+                    warningHtml += `<div>⚠️ <b>TANK CAPACITY WARNING:</b> Max stint requires ${maxStintFuelNeeded}L, but your car's fuel limit is ${tankCap}L. Enable fuel on pit stops or add more stops!</div>`;
+                }
+                if (isInvalidSequence) {
+                    warningHtml += `<div style="margin-top: ${isOverTankCap ? '6px' : '0'}">⚠️ <b>SEQUENCE ERROR:</b> Pit stop lap numbers must be in increasing order and strictly less than total race laps (${totalLaps}).</div>`;
+                }
+                warningBoxEl.innerHTML = warningHtml;
+            } else {
+                warningBoxEl.style.display = 'none';
+            }
+
+            let html = '';
+            strategyStints.forEach((stint) => {
+                const isStart = stint.type === 'START';
+                const isPitStop = stint.pitIndex >= 0;
+                const borderColor = isStart ? '#ff1e1e' : (stint.takesFuel ? '#ffffff' : '#666');
+
+                html += `
+                    <div class="stint-item" style="border-left: 3px solid ${borderColor};">
+                        <div class="stint-header">
+                            <span class="stint-title" style="color: ${borderColor};">
+                                ${stint.type} ${!stint.takesFuel ? '(NO FUEL / TIRES ONLY)' : ''}
+                            </span>
+                            ${isPitStop ? `
+                                <div class="pit-controls">
+                                    <label style="display: flex; align-items: center; gap: 4px; cursor: pointer; font-size: 9px; color: ${stint.takesFuel ? '#ff1e1e' : '#888'}; margin: 0;">
+                                        <input type="checkbox" class="fuel-toggle" data-pit-index="${stint.pitIndex}" ${stint.takesFuel ? 'checked' : ''} style="accent-color: #ff1e1e; cursor: pointer;">
+                                        REFUEL
+                                    </label>
+                                    <div style="width: 1px; height: 14px; background-color: #333;"></div>
+                                    <span style="font-size: 9px; color: #888;">LAP:</span>
+                                    <button type="button" class="step-btn lap-minus" data-pit-index="${stint.pitIndex}">-</button>
+                                    <input type="number" class="custom-pit-input" data-pit-index="${stint.pitIndex}" value="${customPitLaps[stint.pitIndex] !== undefined ? customPitLaps[stint.pitIndex] : ''}" style="width: 38px; background-color: #0d0d0d; border: 1px solid #333; color: #fff; text-align: center; font-size: 11px; padding: 2px;">
+                                    <button type="button" class="step-btn lap-plus" data-pit-index="${stint.pitIndex}">+</button>
+                                </div>
+                            ` : ''}
+                            <span style="font-family: monospace; font-size: 13px; font-weight: bold; color: #ffffff; background-color: #141414; padding: 3px 8px; border: 1px solid #333;">
+                                ${isStart ? 'LOAD' : 'REFILL'} <span style="color: ${stint.takesFuel ? '#ff1e1e' : '#888'};">${stint.fuel} L</span>
+                            </span>
+                        </div>
+                        <div class="stint-footer">
+                            Stint ${stint.stintIndex}: Laps ${stint.startLap} to ${stint.endLap} (${stint.stintLaps} laps total)
+                        </div>
+                    </div>
+                `;
+            });
+            strategyContainerEl.innerHTML = html;
+
+            strategyContainerEl.querySelectorAll('.fuel-toggle').forEach(chk => {
+                chk.addEventListener('change', (e) => {
+                    const idx = parseInt(e.target.getAttribute('data-pit-index'));
+                    pitFuelEnabled[idx] = e.target.checked;
+                    calculate();
+                });
+            });
+
+            strategyContainerEl.querySelectorAll('.lap-minus').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = parseInt(e.target.getAttribute('data-pit-index'));
+                    shiftPitLap(idx, -1);
+                });
+            });
+
+            strategyContainerEl.querySelectorAll('.lap-plus').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = parseInt(e.target.getAttribute('data-pit-index'));
+                    shiftPitLap(idx, 1);
+                });
+            });
+
+            strategyContainerEl.querySelectorAll('.custom-pit-input').forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const idx = parseInt(e.target.getAttribute('data-pit-index'));
+                    const val = e.target.value;
+                    customPitLaps[idx] = val !== '' ? parseInt(val) : '';
+                    calculate();
+                });
+            });
+        }
+
+        function shiftPitLap(pitIndex, delta) {
+            const currentVal = customPitLaps[pitIndex] ?? 0;
+            const newVal = currentVal + delta;
+            const lapM = parseFloat(lapMEl.value) || 0;
+            const lapS = parseFloat(lapSEl.value) || 0;
+            const raceH = parseFloat(raceHEl.value) || 0;
+            const raceM = parseFloat(raceMEl.value) || 0;
+            const totalLaps = Math.ceil((raceH * 3600 + raceM * 60) / (lapM * 60 + lapS)) + 1;
+
+            const minBound = pitIndex > 0 ? customPitLaps[pitIndex - 1] + 1 : 1;
+            const maxBound = pitIndex < customPitLaps.length - 1 ? customPitLaps[pitIndex + 1] - 1 : totalLaps - 1;
+
+            if (newVal >= minBound && newVal <= maxBound) {
+                customPitLaps[pitIndex] = newVal;
+                calculate();
+            }
+        }
+
+        [lapMEl, lapSEl, fuelPerLapEl, raceHEl, raceMEl, carSelectEl, customTankInputEl].forEach(el => {
+            el.addEventListener('input', calculate);
+            el.addEventListener('change', calculate);
+        });
+
+        pitStopsInputEl.addEventListener('input', (e) => {
+            const stops = Math.max(0, parseInt(e.target.value) || 0);
+            updatePresetActiveState(stops);
+            onPitStopsChanged(stops);
+        });
+
+        lookupCarSelectEl.addEventListener('change', updateTelemetryLookup);
+        lookupTrackSelectEl.addEventListener('change', updateTelemetryLookup);
+
+        document.getElementById('helpBtn').addEventListener('click', () => { helpModalEl.style.display = 'flex'; });
+        document.getElementById('closeHelpBtn').addEventListener('click', () => { helpModalEl.style.display = 'none'; });
+        helpModalEl.addEventListener('click', () => { helpModalEl.style.display = 'none'; });
+
+        // Initialize App
+        initCarDropdown();
+        initPresets();
+        initTelemetryLookup();
+        calculate();
+    </script>
+</body>
+</html>
