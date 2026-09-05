@@ -490,7 +490,6 @@ header {
   </svg>
 </div>
       <div class="nav-links">
-        <a href="downloads/ACC-SessionManager.v1.02b.rar" class="btn-primary">Download v1.02b</a>
       </div>
     </div>
   </header>
@@ -503,26 +502,10 @@ header {
       <p>
         Effortlessly manage live server rotation, weather presets, global ban lists,<br>import BoP & Entry List files and edit with the visual editor.
       </p>
-      <div class="hero-cta">
-        <a href="downloads/ACC-SessionManager.v1.02b.rar" class="btn-primary">⚡ Download ACC Session Manager v1.02b</a>
-        <a href="#quick-start" class="btn-secondary">📖 Quick Start Guide</a>
-      </div>
     </section>
 
 
-    
-            <!-- acc fuel tool  -->
-    <section id="features" class="features-grid">
-
-      <div class="feature-card">
-        <h3>Check out our ACC Tools!</h3>
-        <p>* Plan your fuel, stints and pit stops with confidence.</p>
-        <p>* Predict weather conditions for your sessions with the new Weather Forecast tool.</p>
-        <br>
-        <p><a href="calculator.html" target="_blank" class="btn-primary">⛽ PIT Strategy Planner</a> &nbsp; <a href="weather.html" target="_blank" class="btn-primary">🌤️ Weather Forecast Tool</a></p>
-      </div>
-      
-    </section>
+   
 
             <!-- acc fuel tool  -->
     <section id="features" class="features-grid">
@@ -539,206 +522,8 @@ header {
 
     
 
-    <!-- Key Feature Grid -->
-    <section id="features" class="features-grid">
 
-      <div class="feature-card">
-        <div class="feature-icon">🔄</div>
-        <h3>Track Rotation & Live Queue</h3>
-        <p>Set automated track playlists or push live track updates to the queue while the server is active.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">⚖️</div>
-        <h3>Visual BoP & Entry Editors</h3>
-        <p>Import, adjust, and edit <code>bop.json</code> and <code>entrylist.json</code> files through a sleek visual user interface.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🛡️</div>
-        <h3>Integrated Ban Enforcer</h3>
-        <p>Easily search past session logs to ban players permanently or apply immediate in-game administrative bans.</p>
-      </div>
-    </section>
-    
-
-
-    <!-- Main Layout with Sidebar Nav + Docs -->
-    <div class="doc-layout">
-      
-      <!-- Sticky Navigation Sidebar -->
-      <aside class="sidebar">
-        <div class="sidebar-title">Getting Started</div>
-        <hr class="redhr">
-        <ul class="sidebar-menu">
-          <li><a href="#quick-start">Quick Start Guide</a></li>
-        </ul>
-
-        <div class="sidebar-title">Global Settings</div>
-        <hr class="redhr">
-        <ul class="sidebar-menu">
-          <li><a href="#acc-server-control">Server Control Interface</a></li>
-          <li><a href="#global-server-settings">Server Parameters</a></li>
-          <li><a href="#acc-bop-list">Global BoP Editor</a></li>
-          <li><a href="#acc-entry-list">Global Entry List</a></li>
-          <li><a href="#acc-ban-list">Global Ban List</a></li>
-          <li><a href="#acc-backup-list">Backup & Restore</a></li>
-        </ul>
-
-        <div class="sidebar-title">Session Settings</div>
-        <hr class="redhr">
-        <ul class="sidebar-menu">
-          <li><a href="#track-rotation-list">Track Rotation</a></li>
-          <li><a href="#pitstop-rules">Pitstop & Event Rules</a></li>
-          <li><a href="#weather-presets">Weather Presets</a></li>
-          <li><a href="#server-timing">Server Timing</a></li>
-        </ul>
-      </aside>
-
-      <!-- Documentation Content Area -->
-      <div class="doc-content" id="quick-start">
-				
-        <!-- Quick Start Section -->
-        
-        <section class="card">
-          <h2>🚀 Quick Start Guide</h2>
-          
-          <h3>1. Installation</h3>
-          <ul>
-            <li>Avoid Windows OS system folders (e.g., Documents or OneDrive sync paths).</li>
-            <li>Unpack and place the <code>ACC-SessionManager</code> folder into your desired directory<br>e.g., <code>C:\Apps\ACC-SessionManager</code> or <code>D:\ACC-SessionManager</code></li>
-          </ul>
-
-          <h3>2. Setup & Configuration</h3>
-          <ul>
-            <li>1. Launch ACC-SessionManager.exe</li>
-		        <li>2. Configure the server using the global server settings.</li>
-		        <li>3. You can close the gui when ACC Session Manager is Running.</li>
-		        <li> - Access the gui via the System Tray or Start the App.</li>
-		        <li> - Its recommended to add the gui to your browser bookmarks.</li>
-          </ul>
-					<span id="upnp-notes"></span>
-          <h3>3. Network Access</h3>
-		      <ul>
-		        <li>1. Setup the udp and tcp game ports in the gui or leave the game default.</li>
-		        <li>2. Start the Server in the gui and allow accServer.exe both Private and Public.</li>
-		        <li>3. Configure your network router to allow the incoming game ports or...</li>
-		        <li>4. You can enable uPnp in the Global Server Settings.</li>
-		      </ul>
-        </section>
-
-        <!-- Server Control -->
-        <section id="acc-server-control" class="card">
-          <h2>🚦 Server Control Interface</h2>
-         <ul><li>Start and stop the server in either <strong>Rotation</strong> or <strong>Normal Mode</strong>.</li>
-          <li>The green status indicator confirms the server is running.</li></ul>
-          
-          <img src="images/accscmd1.webp" class="img-preview" loading="lazy" alt="ACC Server Control Dashboard">
-          <img src="images/accscmd1d.webp" class="img-preview" loading="lazy" alt="ACC Server Running Status">
-          <img src="images/accscmd1c.webp" class="img-preview" loading="lazy" alt="ACC Server Running Status">
-        </section>
-
-        <!-- Global Settings Overview -->
-        <section id="global-server-settings" class="card">
-          <h2>⚙️ Global Server Settings</h2>
-          <p>Expand accordion panels to configure network ports, server passwords, driver safety requirements, and session rules.</p>
-          <p>Enable uPnp to automatically configure your router for incoming game ports.</p>
-          
-          <img src="images/accscmd1a.webp" class="img-preview" loading="lazy" alt="ACC Session Manager Global Settings">
-          <img src="images/accscmd1b.webp" class="img-preview" loading="lazy" alt="Expanded Global Settings Panel">
-        </section>
-
-        <!-- Balance of Performance (BoP) -->
-        <section id="acc-bop-list" class="card">
-          <h2>⚖️ Global Balance of Performance (BoP)</h2>
-          <p>Import existing <code>bop.json</code> files or build custom ballast and restrictor presets per car and track combination.</p>
-          
-          <img src="images/accsm-bop1.webp" class="img-preview" loading="lazy" alt="BoP Overview Panel">
-          <img src="images/accsm-bop2.webp" class="img-preview" loading="lazy" alt="Visual BoP Editor">
-        </section>
-        
-
-        <!-- Entry List -->
-        <section id="acc-entry-list" class="card">
-          <h2>🏎️ Global Entry List Manager</h2>
-          <p>Import existing <code>entrylist.json</code> files. Modify, and override race number, car choice, ballast, and restrictors visually.</p>
-          
-          <img src="images/accsm-entrylist1.webp" class="img-preview" loading="lazy" alt="Global Entry List Summary">
-          <img src="images/accsm-entrylist2.webp" class="img-preview" loading="lazy" alt="Visual Entry List Editor">
-        </section>
-
-        <!-- Ban List -->
-        <section id="acc-ban-list" class="card">
-          <h2>🛡️ Global Ban Management</h2>
-          
-     
-      <ul>
-      <li>Enable or Disable the Global Ban List.</li>
-      <li>Add Player Name and Steam ID to apply a Permanent Ban.</li>
-      <li>Browse the lastest Result files to find Player Names.</li>
-    
-      <div class="sublist"><br><code>How To Ban a Player</code></div>
-      <li>Use the /ban Admin Command ingame to Ban the Player from the session.</li>
-      <li>View the Latest Session Results & Add the Player to Banlist.</li>
-      <li>Or Manually Add the Player Name and Steam ID.</li>
-      <li>When the Server Restarts The Player will be Banned.</li>
-		  </ul>
-
-          <img src="images/accscmd0.webp" class="img-preview" loading="lazy" alt="Global Ban List Management">
-        </section>
-
-        <!-- Backup & Recovery -->
-        <section id="acc-backup-list" class="card">
-          <h2>💾 Backup & Restoration</h2>
-          <p>Export your full configuration, rotation lists, BoP settings, and ban lists into a single <code>JSON</code> backup bundle for safe keeping or server migration.</p>
-
-          <img src="images/accsm-backup.webp" class="img-preview" loading="lazy" alt="Backup and Recovery Utility">
-          
-        </section>
-				
-				
-        <!-- Track Rotation & Session Config -->
-        <span id="track-rotation-list"></span>
-        <section  class="card">
-          <h2>📅 Track Rotation & Session Fine-Tuning</h2>
-          <p>Re-order track queues on the fly, Adjust Race Rules, Weather Variance and more.</p>
-          
-          <hr class="redhr">
-
-          <h3 id="pitstop-rules">Pitstop & Event Rules</h3>
-          <img src="images/accscmd4.webp" class="img-preview" loading="lazy" alt="Pitstop and Event Rules Settings">
-          
-          <hr class="redhr">
-
-          <h3 id="weather-presets">Weather Settings</h3>
-		      <ul>
-		      <li>Select a Custom or Default Preset.</li>
-		      <li>Or Use the Inputs to Set Custom Weather.</li>
-		   		</ul>
-	
-		      <ul>
-		      <li style="font-weight:bold; color:#ffffff;">Custom Presets</li>
-		      <li>Use the Inputs to Set Your Weather.</li>
-		      <li>Press "Save Preset" to store those settings into the preset and give it a name.</li>
-				  </ul>
-          <img src="images/accscmd5.webp" class="img-preview" loading="lazy" alt="Weather Preset Selector">
-
-					<hr class="redhr">
-					
-          <h3 id="server-timing">Server Timing</h3>
-          <ul><li>Default Overtime is 150.</li><li>Nordschleife Requires Minimum Overtime of 450.</li></ul>
-          <img src="images/accscmd6.webp" class="img-preview" loading="lazy" alt="Server Timing Settings">
-          
-          <hr class="redhr">
-          
-          <h3 id="server-timing">Session Settings</h3>
-          <ul>
-          	<li>Add or Remove Free Practice, Qualifying or Race Sessions.</li>
-          	<li>Set Day, Hour of Day, Duration & time multiplier of each session.</li>
-          </ul>
-          <img src="images/accscmd7.webp" class="img-preview" loading="lazy" alt="Session Settings">
-        </section>
-
-      </div>
-    </div>
+  
   </main>
 
 
